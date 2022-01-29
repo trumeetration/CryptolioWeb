@@ -1,0 +1,48 @@
+.modal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: visible;
+}
+.content-modal {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.header-modal {
+    display: flex;
+    justify-content:space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.modal-input {
+    border-radius: 5px;
+    border:1px solid rgba(0, 0, 0, 0.7);
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 15px;
+    padding: 5px;
+}
+
+.modal-input:focus {
+    border:1px solid rgba(0, 0, 0, 0.7);
+}
+
+.modal-input:active {
+    border:1px solid rgba(0, 0, 0, 0.7);
+}
+
+.modal-input-header {
+    font-size: 15px;
+}

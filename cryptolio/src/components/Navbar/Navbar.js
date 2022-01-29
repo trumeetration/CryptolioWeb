@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -7,15 +7,19 @@ import {
 } from "react-router-dom";
 import {MainPage} from "../../Pages/Main";
 import {MarketPage} from "../../Pages/Market";
+import {PortfoliosPage} from "../../Pages/Portfolios";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import {setActivePage} from "../../store/actions/activePageActions";
-
-const NavbarLayout = ({info, setActivePage}) => {
-    console.log(info)
+import {setActivePage, updateIsLoginModalVisible} from "../../store/actions/activePageActions";
+import {Modal} from "../Modals/Modal";
+const NavbarLayout = ({info, setActivePage, updateIsLoginModalVisible}) => {
+    useEffect(() => {
+        //console.log(info);
+    }, [])
     return (
         <Router>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            {info.isLoginModalVisible && <Modal />}
+            <nav className="navbar navbar-expand-lg navbar-light bg-light mb-3">
                 <div className="container">
                     <div className="row flex-grow-1">
                         <div className="col-md-1 ms-0">
@@ -26,15 +30,17 @@ const NavbarLayout = ({info, setActivePage}) => {
                         <div className="col-md-4 offset-md-3">
                             <div className="d-flex justify-content-around navbar-nav">
                                 <div className="nav-item">
-                                    <Link to="/market" className="navbar-brand d-flex justify-content-center"
+                                    <Link to="/market" className="nav-link"
                                         onClick={()=>setActivePage('Market')}
                                     >
                                         Market
                                     </Link>
                                 </div>
-                                <a className="nav-link" href="#">
-                                    Portfolio
-                                </a>
+                                <Link to="/portfolios" className="nav-link"
+                                      onClick={()=>setActivePage('Portfolios')}
+                                >
+                                    Portfolios
+                                </Link>
                             </div>
                         </div>
                         <div className="col-md-2 offset-md-2 pe-0">
@@ -71,7 +77,7 @@ const NavbarLayout = ({info, setActivePage}) => {
                                         </li>
                                     </ul>
                                 </div>
-                                <button className="btn btn-primary ms-3">
+                                <button className="btn btn-primary ms-3 text-nowrap" onClick={() => updateIsLoginModalVisible(true)}>
                                     Log in
                                 </button>
                             </div>
@@ -83,6 +89,7 @@ const NavbarLayout = ({info, setActivePage}) => {
             <Switch>
                 <Route exact path="/" render={({ match }) => <MainPage />} />
                 <Route exact path="/market" render={({ match }) => <MarketPage />} />
+                <Route exact path="/portfolios" render={({ match }) => <PortfoliosPage />} />
             </Switch>
         </Router>
     );
@@ -95,7 +102,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {setActivePage,},
+        {setActivePage, updateIsLoginModalVisible},
         dispatch
     );
 export const Navbar = connect(
