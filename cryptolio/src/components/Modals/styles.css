@@ -10,7 +10,8 @@
     justify-content: center;
     visibility: visible;
 }
-.content-modal {
+
+.my-modal {
     width: 300px;
     display: flex;
     flex-direction: column;
@@ -27,6 +28,11 @@
     align-items: center;
 }
 
+.body-modal {
+    display: flex;
+    flex-direction: column;
+}
+
 .modal-input {
     border-radius: 5px;
     border:1px solid rgba(0, 0, 0, 0.7);
@@ -36,7 +42,7 @@
 }
 
 .modal-input:focus {
-    border:1px solid rgba(0, 0, 0, 0.7);
+    border:1px solid rgba(0, 0, 0, 0.7) ;
 }
 
 .modal-input:active {
@@ -45,4 +51,8 @@
 
 .modal-input-header {
     font-size: 15px;
+}
+
+.my-link {
+    text-decoration: none;
 }

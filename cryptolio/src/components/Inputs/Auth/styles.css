@@ -1,8 +1,0 @@
-.password-input {
-    border-radius: 5px;
-    border-color: rgba(0, 0, 0, 0.2);
-}
-
-.password-input:focus {
-    border-color: rgba(100, 100, 100, 0.2);
-}
