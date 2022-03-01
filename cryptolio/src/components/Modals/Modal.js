@@ -3,6 +3,7 @@ import './styles.css';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {
+    updateIsLoginModalVisible,
     fetchCreateToken,
     setEmailLog,
     setEmailReg,
@@ -15,12 +16,11 @@ import {
 import {Link} from "react-router-dom";
 import {DangerAlert} from "../../UI/Alerts/dangerAlert";
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
-import {updateIsLoginModalVisible} from "../../store/actions/activePageActions";
 import {TextInput} from "../../UI/Inputs/textInput";
 import {PasswordInput} from "../../UI/Inputs/passwordInput";
 
 const ModalLayout = ({info, setLoginReg, setEmailReg, setPasswordReg, setLoginLog, setEmailLog, setPasswordLog, updateModalMode, fetchCreateToken, updateIsLoginModalVisible}) => {
-    console.log(info);
+    //console.log(info);
     const loginHandler = () => {
         let isError = false;
         if (info.logLogin.trim()) {
@@ -30,7 +30,7 @@ const ModalLayout = ({info, setLoginReg, setEmailReg, setPasswordReg, setLoginLo
             isError = true;
         }
         if (isError) {
-            fetchCreateToken(info.logLogin, info.logPassword);
+            fetchCreateToken(info.logEmail, info.logPassword);
         }
     }
     return (
@@ -44,7 +44,10 @@ const ModalLayout = ({info, setLoginReg, setEmailReg, setPasswordReg, setLoginLo
                     <div className="body-modal">
                         <TextInput label="Email" onTextChange={setEmailLog} styles={{marginBottom: 15}}/>
                         <PasswordInput label="Password" onTextChange={setPasswordLog}/>
-                        {info.requestLoginError && <DangerAlert />}
+                        {info.requestLoginError &&
+                            <div className="mt-2 text-center">
+                                <DangerAlert text='Ошибка авторизации'/>
+                            </div>}
                         {info.updateIsLoginLoading ?
                         <div className="d-flex justify-content-center mt-3">
                             <LoginLoader />

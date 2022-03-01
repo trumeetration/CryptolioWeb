@@ -1,4 +1,5 @@
 import {
+    UPDATE_IS_LOGIN_MODAL_VISIBLE,
     SET_EMAIL_LOG,
     SET_EMAIL_REG,
     SET_LOGIN_LOG,
@@ -10,10 +11,11 @@ import {
     UPDATE_IS_AUTH,
     UPDATE_IS_LOGIN_LOADING,
     UPDATE_IS_REGISTRATION_LOADING,
-    UPDATE_MODAL_MODE
+    UPDATE_MODAL_MODE, HIDE_LOGIN_BUTTON
 } from "../types/authModalTypes";
 
 const INITIAL_STATE = {
+    isLoginModalVisible: false,
     regLogin: '',
     regEmail: '',
     regPassword: '',
@@ -23,15 +25,20 @@ const INITIAL_STATE = {
     modalMode: 'login',
     isAuth: false,
     username: null,
-    token: null,
     requestLoginError: false,
     requestRegistrationError: false,
     isLoginLoading: false,
     isRegistrationLoading: false,
+    isHiddenLoginButton: false,
 };
 
 export const authModalReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case UPDATE_IS_LOGIN_MODAL_VISIBLE:
+            return {
+                ...state,
+                isLoginModalVisible: action.value,
+            }
         case SET_LOGIN_LOG:
             return {
                 ...state,
@@ -68,12 +75,21 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
                 modalMode: action.value,
             }
         case UPDATE_IS_AUTH:
-            return {
-                ...state,
-                isAuth: action.isAuth,
-                username: action.username,
-                token: action.token,
+            if (action.isAuth) {
+                return {
+                    ...state,
+                    isAuth: action.isAuth,
+                    username: action.username,
+                }
             }
+                else {
+                    localStorage.clear();
+                    return {
+                        ...state,
+                        isAuth: action.isAuth,
+                        username: null,
+                    }
+                }
         case SET_REQUEST_LOGIN_ERROR:
             return {
                 ...state,
@@ -93,6 +109,11 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 updateIsRegistrationLoading: action.value,
+            }
+        case HIDE_LOGIN_BUTTON:
+            return {
+                ...state,
+                isHiddenLoginButton: action.value,
             }
         default:
             return state;

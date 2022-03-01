@@ -12,6 +12,7 @@ import {
     UPDATE_IS_LOGIN_LOADING,
     UPDATE_IS_REGISTRATION_LOADING,
     UPDATE_MODAL_MODE,
+    UPDATE_IS_LOGIN_MODAL_VISIBLE, FETCH_VERIFY_TOKEN, HIDE_LOGIN_BUTTON,
 } from "../types/authModalTypes";
 
 export const setLoginReg = (value) => ({
@@ -55,9 +56,9 @@ export const fetchCreateToken = (login, password) => ({
     password
 })
 
-export const updateIsAuth = (isAuth, username, token) => ({
+export const updateIsAuth = (isAuth, username) => ({
     type: UPDATE_IS_AUTH,
-    isAuth, username, token
+    isAuth, username
 })
 
 export const setRequestLoginError = (value) => ({
@@ -77,5 +78,20 @@ export const updateIsLoginLoading = (value) => ({
 
 export const updateIsRegistrationLoading = (value) => ({
     type: UPDATE_IS_REGISTRATION_LOADING,
+    value
+})
+
+export const updateIsLoginModalVisible = (value) => ({
+    type: UPDATE_IS_LOGIN_MODAL_VISIBLE,
+    value
+})
+
+export const fetchVerifyToken = (value) => ({
+    type: FETCH_VERIFY_TOKEN,
+    value
+})
+
+export const hideLoginButton = (value) => ({
+    type: HIDE_LOGIN_BUTTON,
     value
 })

@@ -10,15 +10,18 @@ import {MarketPage} from "../../Pages/Market";
 import {PortfoliosPage} from "../../Pages/Portfolios";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import {setActivePage, updateIsLoginModalVisible} from "../../store/actions/activePageActions";
+import {setActivePage} from "../../store/actions/activePageActions";
 import {Modal} from "../Modals/Modal";
-const NavbarLayout = ({info, setActivePage, updateIsLoginModalVisible}) => {
+import {fetchVerifyToken, updateIsAuth, updateIsLoginModalVisible} from "../../store/actions/authModalActions";
+import {LoginLoader} from "../../UI/Loaders/loginLoader";
+const NavbarLayout = ({info, infoAuth, setActivePage, updateIsLoginModalVisible, updateIsAuth, fetchVerifyToken}) => {
     useEffect(() => {
-        //console.log(info);
+        fetchVerifyToken();
     }, [])
+    console.log(infoAuth);
     return (
         <Router>
-            {info.isLoginModalVisible && <Modal />}
+            {infoAuth.isLoginModalVisible && <Modal />}
             <nav className="navbar navbar-expand-lg navbar-light bg-light mb-3">
                 <div className="container">
                     <div className="row flex-grow-1">
@@ -77,9 +80,23 @@ const NavbarLayout = ({info, setActivePage, updateIsLoginModalVisible}) => {
                                         </li>
                                     </ul>
                                 </div>
-                                <button className="btn btn-primary ms-3 text-nowrap" onClick={() => updateIsLoginModalVisible(true)}>
-                                    Log in
-                                </button>
+                                {infoAuth.isAuth ?
+                                    <div className="d-flex flex-row align-items-center ms-2">
+                                        {infoAuth.username}
+                                        <button className="btn btn-primary ms-3 text-nowrap" onClick={() => updateIsAuth(false)}>
+                                            Log out
+                                        </button>
+                                    </div>
+                                :
+                                    infoAuth.isHiddenLoginButton ?
+                                    <div className="d-flex justify-content-center ms-3">
+                                    <LoginLoader />
+                                    </div> :
+                                        <button className="btn btn-primary ms-3 text-nowrap" onClick={() => updateIsLoginModalVisible(true)}>
+                                            Log in
+                                        </button>
+
+                                }
                             </div>
                         </div>
                     </div>
@@ -97,12 +114,13 @@ const NavbarLayout = ({info, setActivePage, updateIsLoginModalVisible}) => {
 
 const mapStateToProps = (state) => {
     const info = state.activePageReducer;
-    return { info };
+    const infoAuth = state.authModalReducer;
+    return { info, infoAuth };
 };
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {setActivePage, updateIsLoginModalVisible},
+        {setActivePage, updateIsLoginModalVisible, updateIsAuth, fetchVerifyToken},
         dispatch
     );
 export const Navbar = connect(
