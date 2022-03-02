@@ -14,13 +14,15 @@ import {setActivePage} from "../../store/actions/activePageActions";
 import {Modal} from "../Modals/Modal";
 import {fetchVerifyToken, updateIsAuth, updateIsLoginModalVisible} from "../../store/actions/authModalActions";
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
+import {Alerts} from "../Alerts/AlertsList";
 const NavbarLayout = ({info, infoAuth, setActivePage, updateIsLoginModalVisible, updateIsAuth, fetchVerifyToken}) => {
     useEffect(() => {
         fetchVerifyToken();
     }, [])
     console.log(infoAuth);
     return (
-        <Router>
+        <div>
+            <Router>
             {infoAuth.isLoginModalVisible && <Modal />}
             <nav className="navbar navbar-expand-lg navbar-light bg-light mb-3">
                 <div className="container">
@@ -109,6 +111,8 @@ const NavbarLayout = ({info, infoAuth, setActivePage, updateIsLoginModalVisible,
                 <Route exact path="/portfolios" render={({ match }) => <PortfoliosPage />} />
             </Switch>
         </Router>
+            <Alerts />
+        </div>
     );
 };
 

@@ -18,7 +18,12 @@ const request = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://localhost:5001/users/verify", requestOptions)
+    try {
+        return fetch("https://localhost:5001/users/verify", requestOptions)
+    }
+    catch {
+        return false;
+    }
 };
 
 function* fetchTokenVerifyWorker(info) {
@@ -26,6 +31,7 @@ function* fetchTokenVerifyWorker(info) {
     const data = yield call(
         request
     );
+    console.log(data);
     if (data.status === 401) {
         yield put(updateIsAuth(false));
     }

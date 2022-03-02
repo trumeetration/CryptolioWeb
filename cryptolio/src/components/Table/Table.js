@@ -9,13 +9,13 @@ export const Table = ({}) => {
     return (
         <div className="wrapper">
             <div className="headTable">
-                <div className="columnTable favoriteTable font-monospace" style={{width: 30}}>
+                <div className="columnTable favoriteTable font-monospace">
                     #
                 </div>
                 <div className="columnTable favoriteTable font-monospace">
                     <MdFavoriteBorder />
                 </div>
-                <div className="columnTable currency-name font-monospace">
+                <div className="columnTableCurrencyName currency-name font-monospace">
                     Asset
                 </div>
                 <div className="columnTable font-monospace">
@@ -33,42 +33,44 @@ export const Table = ({}) => {
                 <div className="columnTable font-monospace">
                     24h Volume
                 </div>
-                <div className="columnTable font-monospace" style={{width: 150}}>
+                <div className="chart-column font-monospace">
                     7d Graph
                 </div>
             </div>
             <div className="rowTable">
-                <div className="columnTable favoriteTable">
-                    {1}
+                <div className="columnTable favoriteTable font-monospace">
+                    1
                 </div>
-                <div className="columnTable favoriteTable">
+                <div className="columnTable favoriteTable font-monospace">
                     <MdFavoriteBorder />
                 </div>
-                <div className="columnTable currency-name d-flex flex-row align-items-center">
-                    <img src={logo} width={40} height={40} alt={"alt"}/>
-                    <div className="ms-3">Bitcoin BTC</div>
+                <div className="columnTableCurrencyName currency-name font-monospace">
+                    <img src={logo} width={40} height={40} alt={"alt"} className="rounded-circle"/>
+                    <div className="ms-3">Rangocoin RNC</div>
                 </div>
-                <div className="columnTable">
-                    $42,265.04
+                <div className="columnTable font-monospace">
+                    111
                 </div>
-                <div className="columnTable">
-                    0.86%
+                <div className="columnTable font-monospace">
+                    222
                 </div>
-                <div className="columnTable">
-                    4.36%
+                <div className="columnTable font-monospace">
+                    333
                 </div>
-                <div className="columnTable">
-                    $965 B
+                <div className="columnTable font-monospace">
+                    444
                 </div>
-                <div className="columnTable">
-                    $34 B
+                <div className="columnTable font-monospace">
+                    555
                 </div>
-                <div className="columnTable" style={{backgroundColor: ''}}>
-                    <div className="chart-wrapper" style={{backgroundColor: ''}}>
-                        <Sparklines data={data1} style={{width: 150, height: 50}}>
-                            <SparklinesLine color="green"/>
-                        </Sparklines>
-                        <div id="gradient" />
+                <div className="chart-column " style={{backgroundColor: ''}}>
+                    <div>
+                        <div className="chart-wrapper" style={{backgroundColor: ''}}>
+                            <Sparklines data={data1} style={{width: '100%', height: 50}}>
+                                <SparklinesLine color="green"/>
+                            </Sparklines>
+                            <div id="gradient" />
+                        </div>
                     </div>
                 </div>
             </div>

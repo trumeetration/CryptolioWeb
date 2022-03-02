@@ -29,23 +29,45 @@
 .columnTable {
     font-family: Roboto, serif;
     display: flex;
+    justify-content: center;
     padding: 10px;
     font-size: 16px;
     width: 10%;
 }
 
-.currency-name {
-    width: 20%;
+.columnTableCurrencyName {
+    font-family: Roboto, serif;
+    display: flex;
+    padding: 10px;
     font-size: 16px;
+
+}
+
+.currency-name {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    width: 20%;
+}
+
+.chart-column {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: 20%;
 }
 
 .favoriteTable {
     font-size: 16px;
-    width: 30px;
+    width: 5%;
 }
 
 .chart-wrapper {
     position: relative;
+    width: 100%;
 }
 
 #gradient {
@@ -55,6 +77,5 @@
     bottom: 0;
     left: 0;
     height: 35px;
-    width: 150px;
     background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 90%);
 }
