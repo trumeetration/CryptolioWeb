@@ -3,8 +3,10 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 import './styles.css';
 import logo from './logo.jpg'
+import {Row} from "./Row";
+import {LoginLoader} from "../../UI/Loaders/loginLoader";
 
-export const Table = ({}) => {
+export const Table = ({coinsList}) => {
     const data1 = [5, 10, 5, 20, 13, 20, 2, 15, 1, 5, 10, 5, 20, 13, 20, 2, 15, 10, 5, 10, 5, 20, 13, 20, 2, 15, 10];
     return (
         <div className="wrapper">
@@ -30,50 +32,13 @@ export const Table = ({}) => {
                 <div className="columnTable font-monospace">
                     Market Cap
                 </div>
-                <div className="columnTable font-monospace">
-                    24h Volume
-                </div>
                 <div className="chart-column font-monospace">
                     7d Graph
                 </div>
             </div>
-            <div className="rowTable">
-                <div className="columnTable favoriteTable font-monospace">
-                    1
-                </div>
-                <div className="columnTable favoriteTable font-monospace">
-                    <MdFavoriteBorder />
-                </div>
-                <div className="columnTableCurrencyName currency-name font-monospace">
-                    <img src={logo} width={40} height={40} alt={"alt"} className="rounded-circle"/>
-                    <div className="ms-3">Rangocoin RNC</div>
-                </div>
-                <div className="columnTable font-monospace">
-                    111
-                </div>
-                <div className="columnTable font-monospace">
-                    222
-                </div>
-                <div className="columnTable font-monospace">
-                    333
-                </div>
-                <div className="columnTable font-monospace">
-                    444
-                </div>
-                <div className="columnTable font-monospace">
-                    555
-                </div>
-                <div className="chart-column " style={{backgroundColor: ''}}>
-                    <div>
-                        <div className="chart-wrapper" style={{backgroundColor: ''}}>
-                            <Sparklines data={data1} style={{width: '100%', height: 50}}>
-                                <SparklinesLine color="green"/>
-                            </Sparklines>
-                            <div id="gradient" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {coinsList ? coinsList.map((row, id) => {
+                return (<Row id={id+1} coinData={row}/>)
+            }) : <div className="d-flex justify-content-center mt-5"><LoginLoader /></div>}
         </div>
     )
 }

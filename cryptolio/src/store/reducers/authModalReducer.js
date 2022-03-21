@@ -11,7 +11,7 @@ import {
     UPDATE_IS_AUTH,
     UPDATE_IS_LOGIN_LOADING,
     UPDATE_IS_REGISTRATION_LOADING,
-    UPDATE_MODAL_MODE, HIDE_LOGIN_BUTTON
+    UPDATE_MODAL_MODE, HIDE_LOGIN_BUTTON, SET_COINS_LIST
 } from "../types/authModalTypes";
 
 const INITIAL_STATE = {
@@ -30,6 +30,7 @@ const INITIAL_STATE = {
     isLoginLoading: false,
     isRegistrationLoading: false,
     isHiddenLoginButton: false,
+    coinsList: null
 };
 
 export const authModalReducer = (state = INITIAL_STATE, action) => {
@@ -114,6 +115,11 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isHiddenLoginButton: action.value,
+            }
+        case SET_COINS_LIST:
+            return {
+                ...state,
+                coinsList: action.value,
             }
         default:
             return state;

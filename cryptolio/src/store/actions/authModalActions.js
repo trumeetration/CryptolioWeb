@@ -12,7 +12,7 @@ import {
     UPDATE_IS_LOGIN_LOADING,
     UPDATE_IS_REGISTRATION_LOADING,
     UPDATE_MODAL_MODE,
-    UPDATE_IS_LOGIN_MODAL_VISIBLE, FETCH_VERIFY_TOKEN, HIDE_LOGIN_BUTTON,
+    UPDATE_IS_LOGIN_MODAL_VISIBLE, FETCH_VERIFY_TOKEN, HIDE_LOGIN_BUTTON, FETCH_GET_COINS, SET_COINS_LIST,
 } from "../types/authModalTypes";
 
 export const setLoginReg = (value) => ({
@@ -33,6 +33,10 @@ export const setEmailReg = (value) => ({
 export const setPasswordReg = (value) => ({
     type: SET_PASSWORD_REG,
     value
+})
+
+export const fetchGetCoins = () => ({
+    type: FETCH_GET_COINS
 })
 
 export const setLoginLog = (value) => ({
@@ -93,5 +97,10 @@ export const fetchVerifyToken = (value) => ({
 
 export const hideLoginButton = (value) => ({
     type: HIDE_LOGIN_BUTTON,
+    value
+})
+
+export const setCoinsList = (value) => ({
+    type: SET_COINS_LIST,
     value
 })
