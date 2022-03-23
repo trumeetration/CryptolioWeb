@@ -27,6 +27,7 @@ function* fetchGetCoinsWorker() {
     const preparedData = json.map(el => ({
             coinId: el.id,
             name: el.name,
+            image: el.image,
             marketPrice: Math.round(el.current_price * 1000) / 1000,
             priceChange24h: Math.round(el.price_change_percentage_24h_in_currency * 100) / 100,
             priceChange7d: Math.round(el.price_change_percentage_7d_in_currency * 100) / 100,

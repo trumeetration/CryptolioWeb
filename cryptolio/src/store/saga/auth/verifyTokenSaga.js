@@ -7,6 +7,7 @@ import {
     updateIsLoginLoading,
     updateIsLoginModalVisible
 } from "../../actions/authModalActions";
+import {updateGlobalAlertList} from "../../actions/activePageActions";
 
 const request = () => {
     var myHeaders = new Headers();
@@ -18,12 +19,7 @@ const request = () => {
         redirect: 'follow'
     };
 
-    try {
-        return fetch("https://localhost:5001/users/verify", requestOptions)
-    }
-    catch {
-        return false;
-    }
+    return fetch("https://localhost:5001/users/verify", requestOptions).catch(() => {})
 };
 
 function* fetchTokenVerifyWorker(info) {
@@ -31,15 +27,19 @@ function* fetchTokenVerifyWorker(info) {
     const data = yield call(
         request
     );
-    console.log(data);
-    if (data.status === 401) {
-        yield put(updateIsAuth(false));
+    if (data) {
+        if (data.status === 401) {
+            yield put(updateIsAuth(false));
+        } else {
+            const json = yield call(() => new Promise((res) => res(data.json())));
+            yield put(updateIsAuth(true, json.result.nickname));
+        }
+        yield put(hideLoginButton(false));
     }
     else {
-        const json = yield call(() => new Promise((res) => res(data.json())));
-        yield put(updateIsAuth(true, json.result.nickname));
+        yield put(hideLoginButton(false));
+        yield put(updateGlobalAlertList({id:Math.random(), header: "Whoops", body: "Something went wrong :("}))
     }
-    yield put(hideLoginButton(false));
 }
 
 export function* fetchTokenVerifyWatcher() {

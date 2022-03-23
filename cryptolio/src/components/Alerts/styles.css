@@ -1,0 +1,13 @@
+.toastOpacity {
+    animation-duration: 3s;
+    animation-name: disappear;
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

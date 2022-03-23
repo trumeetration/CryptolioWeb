@@ -15,20 +15,28 @@ export const Row = ({id, coinData}) => {
                     <MdFavoriteBorder />
                 </div>
                 <div className="columnTableCurrencyName currency-name font-monospace">
-                    <img src={logo} width={40} height={40} alt={"alt"} className="rounded-circle"/>
-                    <div className="ms-3">${coinData.name}</div>
+                    <img src={coinData.image} width={35} height={35} alt={"alt"} className="rounded-circle"/>
+                    <div className="ms-3">{coinData.name}</div>
+                </div>
+                <div className="columnTable font-monospace text-primary">
+                    ${coinData.marketPrice}
+                </div>
+                <div className={`columnTable font-monospace ${(coinData.priceChange24h > 0) ? "text-success-light" : (coinData.priceChange24h < 0) ? "text-danger" : ""}`}>
+                    {coinData.priceChange24h}%
+                </div>
+                <div className={`columnTable font-monospace ${(coinData.priceChange7d > 0) ? "text-success-light" : (coinData.priceChange7d < 0) ? "text-danger" : ""}`}>
+                    {coinData.priceChange7d}%
                 </div>
                 <div className="columnTable font-monospace">
-                    {coinData.marketPrice}
-                </div>
-                <div className="columnTable font-monospace">
-                    {coinData.priceChange24h}
-                </div>
-                <div className="columnTable font-monospace">
-                    {coinData.priceChange7d}
-                </div>
-                <div className="columnTable font-monospace">
-                    {coinData.marketCap}
+                    {(coinData.marketCap > 1000000000) ?
+                        "$"+(coinData.marketCap/1000000000).toFixed(2)+"B"
+                    :
+                        (coinData.marketCap > 1000000) ?
+                            "$"+(coinData.marketCap/1000000).toFixed(2)+"M"
+                            :
+                            "$"+coinData.marketCap
+
+                    }
                 </div>
                 <div className="chart-column " style={{backgroundColor: ''}}>
                     <div>

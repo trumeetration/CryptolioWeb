@@ -5,13 +5,7 @@ import {
 
 const INITIAL_STATE = {
     activePage: window.location.pathname === "/" && "Main",
-    globalAlertList: [
-        {
-            id: 1,
-            header: 'Hello',
-            body: 'World',
-        }
-    ],
+    globalAlertList: [],
 };
 
 export const activePageReducer = (state = INITIAL_STATE, action) => {

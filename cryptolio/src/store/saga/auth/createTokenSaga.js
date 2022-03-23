@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import {FETCH_CREATE_TOKEN} from "../../types/authModalTypes";
 import {setRequestLoginError, updateIsAuth, updateIsLoginLoading, updateIsLoginModalVisible} from "../../actions/authModalActions";
+import {updateGlobalAlertList} from "../../actions/activePageActions";
 
 const fetchCreateToken = (email, password) => {
     let myHeaders = new Headers();
@@ -18,7 +19,7 @@ const fetchCreateToken = (email, password) => {
         redirect: 'follow'
     };
 
-    return fetch("https://localhost:5001/users/login", requestOptions);
+    return fetch("https://localhost:5001/users/login", requestOptions).catch(() => {});
 };
 
 function* fetchTokenCreateWorker(info) {
@@ -28,23 +29,29 @@ function* fetchTokenCreateWorker(info) {
         info.login,
         info.password
     );
-    const json = yield call(() => new Promise((res) => res(data.json())));
-    //console.log(json); //DEBUG
-    if (json.isError) {
-        yield put(setRequestLoginError(true));
+    if (data) {
+        const json = yield call(() => new Promise((res) => res(data.json())));
+        //console.log(json); //DEBUG
+        if (json.isError) {
+            yield put(setRequestLoginError(true));
+        } else {
+            yield put(updateIsAuth(true, json.message, json.token));
+            yield put(setRequestLoginError(false));
+            //document.cookie = `user=${json.message}; max-age=36000`;
+            //document.cookie = `token=${json.token}; max-age=36000`;
+            console.log(json);
+            localStorage.setItem('accessToken', json.result);
+            yield put(updateIsLoginModalVisible(false));
+
+        }
+        //alert( document.cookie );
+        yield put(updateIsLoginLoading(false));
     }
     else {
-        yield put(updateIsAuth(true, json.message, json.token));
-        yield put(setRequestLoginError(false));
-        //document.cookie = `user=${json.message}; max-age=36000`;
-        //document.cookie = `token=${json.token}; max-age=36000`;
-        console.log(json);
-        localStorage.setItem('accessToken', json.result);
+        yield put(updateIsLoginLoading(false));
         yield put(updateIsLoginModalVisible(false));
-
+        yield put(updateGlobalAlertList({id:Math.random(), header: "Whoops", body: "Something went wrong :("}))
     }
-    //alert( document.cookie );
-    yield put(updateIsLoginLoading(false));
 }
 
 export function* tokenCreateWatcher() {

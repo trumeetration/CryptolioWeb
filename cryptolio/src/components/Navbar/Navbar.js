@@ -15,6 +15,7 @@ import {Modal} from "../Modals/Modal";
 import {fetchVerifyToken, updateIsAuth, updateIsLoginModalVisible} from "../../store/actions/authModalActions";
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
 import {Alerts} from "../Alerts/AlertsList";
+
 const NavbarLayout = ({info, infoAuth, setActivePage, updateIsLoginModalVisible, updateIsAuth, fetchVerifyToken}) => {
     useEffect(() => {
         fetchVerifyToken();

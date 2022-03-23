@@ -29,7 +29,7 @@
 .columnTable {
     font-family: Roboto, serif;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     padding: 10px;
     font-size: 16px;
     width: 10%;
@@ -45,7 +45,7 @@
 .currency-name {
     font-family: Roboto, serif;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
     padding: 10px;
     font-size: 16px;
@@ -67,6 +67,11 @@
 .chart-wrapper {
     position: relative;
     width: 100%;
+}
+
+.text-success-light
+{
+    color: #069D00;
 }
 
 #gradient {
