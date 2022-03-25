@@ -1,11 +1,8 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import {FETCH_CREATE_TOKEN, FETCH_VERIFY_TOKEN} from "../../types/authModalTypes";
+import {FETCH_VERIFY_TOKEN} from "../../types/authModalTypes";
 import {
     hideLoginButton,
-    setRequestLoginError,
     updateIsAuth,
-    updateIsLoginLoading,
-    updateIsLoginModalVisible
 } from "../../actions/authModalActions";
 import {updateGlobalAlertList} from "../../actions/activePageActions";
 

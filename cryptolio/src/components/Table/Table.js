@@ -5,9 +5,10 @@ import './styles.css';
 import logo from './logo.jpg'
 import {Row} from "./Row";
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 
-export const Table = ({coinsList}) => {
-    const data1 = [5, 10, 5, 20, 13, 20, 2, 15, 1, 5, 10, 5, 20, 13, 20, 2, 15, 10, 5, 10, 5, 20, 13, 20, 2, 15, 10];
+const TableLayout = ({info, coinsList}) => {
     return (
         <div className="wrapper">
             <div className="headTable">
@@ -37,8 +38,24 @@ export const Table = ({coinsList}) => {
                 </div>
             </div>
             {coinsList ? coinsList.map((row, id) => {
-                return (<Row id={id+1} coinData={row}/>)
+                return (<Row id={(info.currentCoinsListPage - 1) * 100 + id + 1} coinData={row}/>)
             }) : <div className="d-flex justify-content-center mt-5"><LoginLoader /></div>}
         </div>
+
     )
 }
+
+const mapStateToProps = (state) => {
+    const info = state.authModalReducer;
+    return { info };
+};
+
+const mapDispatchToProps = (dispatch) =>
+    bindActionCreators(
+        {},
+        dispatch
+    );
+export const Table = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TableLayout);

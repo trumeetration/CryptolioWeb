@@ -20,7 +20,7 @@ const NavbarLayout = ({info, infoAuth, setActivePage, updateIsLoginModalVisible,
     useEffect(() => {
         fetchVerifyToken();
     }, [])
-    console.log(infoAuth);
+    //console.log(infoAuth);
     return (
         <div>
             <Router>

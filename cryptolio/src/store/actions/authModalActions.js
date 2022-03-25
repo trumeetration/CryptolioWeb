@@ -12,7 +12,12 @@ import {
     UPDATE_IS_LOGIN_LOADING,
     UPDATE_IS_REGISTRATION_LOADING,
     UPDATE_MODAL_MODE,
-    UPDATE_IS_LOGIN_MODAL_VISIBLE, FETCH_VERIFY_TOKEN, HIDE_LOGIN_BUTTON, FETCH_GET_COINS, SET_COINS_LIST,
+    UPDATE_IS_LOGIN_MODAL_VISIBLE,
+    FETCH_VERIFY_TOKEN,
+    HIDE_LOGIN_BUTTON,
+    FETCH_GET_COINS,
+    SET_COINS_LIST,
+    SET_COINS_LIST_SIZE, UPDATE_CURRENT_COINS_LIST_PAGE, UPDATE_IS_COINS_LIST_LOADING,
 } from "../types/authModalTypes";
 
 export const setLoginReg = (value) => ({
@@ -35,8 +40,9 @@ export const setPasswordReg = (value) => ({
     value
 })
 
-export const fetchGetCoins = () => ({
-    type: FETCH_GET_COINS
+export const fetchGetCoins = (currentCoinsListPage) => ({
+    type: FETCH_GET_COINS,
+    currentCoinsListPage
 })
 
 export const setLoginLog = (value) => ({
@@ -102,5 +108,20 @@ export const hideLoginButton = (value) => ({
 
 export const setCoinsList = (value) => ({
     type: SET_COINS_LIST,
+    value
+})
+
+export const setCoinsListSize = (value) => ({
+    type: SET_COINS_LIST_SIZE,
+    value
+})
+
+export const updateCurrentCoinsListPage = (value) => ({
+    type: UPDATE_CURRENT_COINS_LIST_PAGE,
+    value
+})
+
+export const updateIsCoinsListLoading = (value) => ({
+    type: UPDATE_IS_COINS_LIST_LOADING,
     value
 })

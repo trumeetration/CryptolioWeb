@@ -37,8 +37,6 @@ function* fetchTokenCreateWorker(info) {
         } else {
             yield put(updateIsAuth(true, json.message, json.token));
             yield put(setRequestLoginError(false));
-            //document.cookie = `user=${json.message}; max-age=36000`;
-            //document.cookie = `token=${json.token}; max-age=36000`;
             console.log(json);
             localStorage.setItem('accessToken', json.result);
             yield put(updateIsLoginModalVisible(false));
