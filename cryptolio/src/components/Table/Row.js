@@ -20,7 +20,7 @@ const RowLayout = ({info, id, coinData}) => {
                         <div className="columnTable favoriteTable font-monospace">
                             <MdFavoriteBorder />
                         </div>
-                        <div className="columnTableCurrencyName currency-name font-monospace">
+                        <div className="columnTableAsset currency-name font-monospace">
                             <img src={coinData.image} width={35} height={35} alt={"alt"} className="rounded-circle"/>
                             <div className="ms-3">{coinData.name}</div>
                         </div>
@@ -48,7 +48,9 @@ const RowLayout = ({info, id, coinData}) => {
                             <div>
                                 <div className="chart-wrapper" style={{backgroundColor: ''}}>
                                     <Sparklines data={coinData.sparkleData} style={{width: '100%', height: 50}}>
-                                        <SparklinesLine color={coinData.sparkleData[0] < coinData.sparkleData[coinData.sparkleData.length -1] ? "green" : "red"}/>
+                                        <SparklinesLine color={coinData.sparkleData[0] < coinData.sparkleData[coinData.sparkleData.length -1] ? "green"
+                                            : (coinData.sparkleData[0] > coinData.sparkleData[coinData.sparkleData.length -1]) ? "red"
+                                        :"grey"}/>
                                     </Sparklines>
                                 </div>
                             </div>

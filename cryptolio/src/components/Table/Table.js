@@ -12,29 +12,51 @@ const TableLayout = ({info, coinsList}) => {
     return (
         <div className="wrapper">
             <div className="headTable">
-                <div className="columnTable favoriteTable font-monospace">
+                <div className="columnTableHeadNumber favoriteTable font-monospace">
                     #
+                    <span className="arrow-down">
+                        	&#9660;
+                    </span>
                 </div>
-                <div className="columnTable favoriteTable font-monospace">
+                <div className="columnTableHeadFavorite favoriteTable font-monospace">
                     <MdFavoriteBorder />
+                    <span className="arrow-down">
+                        	&#9660;
+                    </span>
                 </div>
-                <div className="columnTableCurrencyName currency-name font-monospace">
+                <div className="columnTableHeadAsset currency-name font-monospace">
                     Asset
+                    <span className="arrow-down">
+                        	&#9660;
+                    </span>
                 </div>
-                <div className="columnTable font-monospace">
+                <div className="columnTableHead font-monospace">
                     Market Price
+                    <span className="arrow-down">
+                        	&#9660;
+                    </span>
                 </div>
-                <div className="columnTable font-monospace">
+                <div className="columnTableHead font-monospace">
                     24h Change
+                    <span className="arrow-down">
+                        	&#9660;
+                    </span>
                 </div>
-                <div className="columnTable font-monospace">
+                <div className="columnTableHead font-monospace">
                     7d Change
+                    <span className="arrow-down">
+                        	&#9660;
+                    </span>
                 </div>
-                <div className="columnTable font-monospace">
+                <div className="columnTableHead font-monospace">
                     Market Cap
+                    <span className="arrow-down">
+                        	&#9660;
+                    </span>
                 </div>
-                <div className="chart-column font-monospace">
+                <div className="chart-columnHead font-monospace">
                     7d Graph
+
                 </div>
             </div>
             {coinsList ? coinsList.map((row, id) => {

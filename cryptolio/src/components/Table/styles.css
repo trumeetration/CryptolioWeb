@@ -26,6 +26,10 @@
     border-bottom-width: 1px;
 }
 
+.rowTable:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 .columnTable {
     font-family: Roboto, serif;
     display: flex;
@@ -35,7 +39,48 @@
     width: 10%;
 }
 
-.columnTableCurrencyName {
+.columnTableHead {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+    font-size: 16px;
+    width: 10%;
+    cursor: pointer;
+    align-items: center;
+}
+
+.columnTableHeadNumber {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+    font-size: 16px;
+    width: 10%;
+    cursor: pointer;
+    align-items: center;
+}
+
+.columnTableHeadFavorite {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+    font-size: 16px;
+    width: 10%;
+    cursor: pointer;
+    align-items: center;
+}
+
+.columnTableHeadAsset {
+    font-family: Roboto, serif;
+    display: flex;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.columnTableAsset {
     font-family: Roboto, serif;
     display: flex;
     padding: 10px;
@@ -58,6 +103,14 @@
     justify-content: center;
     padding: 10px;
     width: 20%;
+}
+
+.chart-columnHead {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: 20%;
+    cursor: pointer;
 }
 
 .favoriteTable {
@@ -83,4 +136,27 @@
     left: 0;
     height: 35px;
     background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 90%);
+}
+
+.arrow-down {
+    padding-left: 5px;
+    color: rgba(0, 0, 0, 0.7);
+    visibility: hidden;
+}
+
+
+.columnTableHeadNumber:hover .arrow-down {
+    visibility: visible;
+}
+
+.columnTableHeadFavorite:hover .arrow-down {
+    visibility: visible;
+}
+
+.columnTableHeadAsset:hover .arrow-down {
+    visibility: visible;
+}
+
+.columnTableHead:hover .arrow-down {
+    visibility: visible;
 }
