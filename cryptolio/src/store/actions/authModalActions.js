@@ -17,7 +17,11 @@ import {
     HIDE_LOGIN_BUTTON,
     FETCH_GET_COINS,
     SET_COINS_LIST,
-    SET_COINS_LIST_SIZE, UPDATE_CURRENT_COINS_LIST_PAGE, UPDATE_IS_COINS_LIST_LOADING,
+    SET_COINS_LIST_SIZE,
+    UPDATE_CURRENT_COINS_LIST_PAGE,
+    UPDATE_IS_COINS_LIST_LOADING,
+    SET_PORTFOLIO_LIST,
+    UPDATE_IS_PORTFOLIOS_LIST_LOADING, FETCH_GET_PORTFOLIOS, UPDATE_SELECTED_PORTFOLIO,
 } from "../types/authModalTypes";
 
 export const setLoginReg = (value) => ({
@@ -123,5 +127,24 @@ export const updateCurrentCoinsListPage = (value) => ({
 
 export const updateIsCoinsListLoading = (value) => ({
     type: UPDATE_IS_COINS_LIST_LOADING,
+    value
+})
+
+export const updateIsPortfoliosListLoading = (value) => ({
+    type: UPDATE_IS_PORTFOLIOS_LIST_LOADING,
+    value
+})
+
+export const setPortfolioList = (value) => ({
+    type: SET_PORTFOLIO_LIST,
+    value
+})
+
+export const fetchGetPortfolios = () => ({
+    type: FETCH_GET_PORTFOLIOS,
+})
+
+export const updateSelectedPortfolio = (value) => ({
+    type: UPDATE_SELECTED_PORTFOLIO,
     value
 })

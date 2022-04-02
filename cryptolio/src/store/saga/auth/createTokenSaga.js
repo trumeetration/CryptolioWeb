@@ -37,7 +37,7 @@ function* fetchTokenCreateWorker(info) {
         } else {
             yield put(updateIsAuth(true, json.message, json.token));
             yield put(setRequestLoginError(false));
-            console.log(json);
+            //console.log(json);
             localStorage.setItem('accessToken', json.result);
             yield put(updateIsLoginModalVisible(false));
 

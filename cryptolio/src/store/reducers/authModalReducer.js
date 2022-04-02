@@ -16,7 +16,7 @@ import {
     SET_COINS_LIST,
     SET_COINS_LIST_SIZE,
     UPDATE_CURRENT_COINS_LIST_PAGE,
-    UPDATE_IS_COINS_LIST_LOADING
+    UPDATE_IS_COINS_LIST_LOADING, SET_PORTFOLIO_LIST, UPDATE_IS_PORTFOLIOS_LIST_LOADING, UPDATE_SELECTED_PORTFOLIO
 } from "../types/authModalTypes";
 
 const INITIAL_STATE = {
@@ -39,6 +39,9 @@ const INITIAL_STATE = {
     coinsListSize: 0,
     currentCoinsListPage: 1,
     isCoinsListLoading: false,
+    portfolioList: null,
+    isPortfoliosListLoading: false,
+    selectedPortfolio: null,
 };
 
 export const authModalReducer = (state = INITIAL_STATE, action) => {
@@ -143,6 +146,21 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isCoinsListLoading: action.value,
+            }
+        case SET_PORTFOLIO_LIST:
+            return {
+                ...state,
+                portfolioList: action.value,
+            }
+        case UPDATE_IS_PORTFOLIOS_LIST_LOADING:
+            return {
+                ...state,
+                isPortfoliosListLoading: action.value,
+            }
+        case UPDATE_SELECTED_PORTFOLIO:
+            return {
+                ...state,
+                selectedPortfolio: action.value,
             }
         default:
             return state;

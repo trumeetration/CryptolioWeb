@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Table} from "../components/Table/Table"
+import {Table} from "../components/Table/Table";
 import {
     fetchGetCoins, updateCurrentCoinsListPage,
 } from "../store/actions/authModalActions";
@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 
 const MarketLayout = ({info, fetchGetCoins, updateCurrentCoinsListPage}) => {
     useEffect(() => {
-        (info.coinsList === null && fetchGetCoins(info.currentCoinsListPage));
+        (info.coinsList === null && setTimeout(fetchGetCoins(info.currentCoinsListPage, 1000)));
     },[]);
     const updatePageHandler = (page) => {
         if (!info.isCoinsListLoading) {
