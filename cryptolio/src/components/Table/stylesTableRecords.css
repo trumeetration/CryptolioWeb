@@ -1,0 +1,64 @@
+.gradient {
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #E2E2E2 8%, #ECECEC 38%, #F7F7F7 54%, #E2E2E2 );
+    background-size: 1000px 640px;
+
+    position: relative;
+
+}
+
+@keyframes placeHolderShimmer{
+    0%{
+        background-position: -500px 0
+    }
+    100%{
+        background-position: 500px 0
+    }
+}
+
+.columnTableHead {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+    font-size: 14px;
+    width: 15%;
+    cursor: pointer;
+    align-items: center;
+}
+
+.columnTableHeadAsset {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: start;
+    padding: 10px;
+    font-size: 14px;
+    width: 25%;
+    cursor: pointer;
+    align-items: center;
+}
+
+.columnTable {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+    font-size: 14px;
+    width: 15%;
+    align-items: center;
+}
+
+.columnTableAsset {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: start;
+    padding: 10px;
+    font-size: 14px;
+    width: 25%;
+    align-items: center;
+}

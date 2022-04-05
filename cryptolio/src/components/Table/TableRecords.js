@@ -1,15 +1,19 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import "./stylesPortfolios.css"
-import {MdFavoriteBorder} from "react-icons/md";
-import {Row} from "./Row";
+import "./stylesTableRecords.css"
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
-const TablePortfoliosLayout = ({info}) => {
+import {RowRecords} from "./RowRecords";
+import {Row} from "./Row";
+import {fetchGetCoinsData} from "../../store/actions/authModalActions";
+
+const TableRecordsLayout = ({info}) => {
+    useEffect(() => {
+    },[])
     return (
         <div className="wrapper">
             <div className="headTable">
-                <div className="columnTableHeadAsset currency-name font-monospace">
+                <div className="columnTableHeadAsset font-monospace">
                     Asset
                     <span className="arrow-down">
                         	&#9660;
@@ -22,30 +26,41 @@ const TablePortfoliosLayout = ({info}) => {
                     </span>
                 </div>
                 <div className="columnTableHead font-monospace">
-                    24h Profit
+                    Buy Price
                     <span className="arrow-down">
                         	&#9660;
                     </span>
                 </div>
                 <div className="columnTableHead font-monospace">
-                    All Time Anal
+                    Amount
                     <span className="arrow-down">
                         	&#9660;
                     </span>
                 </div>
                 <div className="columnTableHead font-monospace">
-                    Avg price
+                    Date
                     <span className="arrow-down">
                         	&#9660;
                     </span>
                 </div>
                 <div className="columnTableHead font-monospace">
-                    Holdings
+                    Notes
                     <span className="arrow-down">
                         	&#9660;
                     </span>
                 </div>
             </div>
+            {info.isPortfolioRecordsListLoading ?
+                <div className="gradient text-center rounded-3 bg-primary pt-5 pb-5"><LoginLoader/></div>
+            :
+                info.portfolioRecordsList &&
+                    info.portfolioRecordsList.length !== 0 ?
+                        info.portfolioRecordsList.map((row, id) => {
+                        return (<RowRecords recordsData={row}/>)
+                    })
+                        :
+                    <div className="h4">Пусто((</div>
+            }
         </div>
     )
 }
@@ -57,10 +72,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {},
+        {fetchGetCoinsData},
         dispatch
     );
-export const TablePortfolios = connect(
+export const TableRecords = connect(
     mapStateToProps,
     mapDispatchToProps
-)(TablePortfoliosLayout);
+)(TableRecordsLayout);

@@ -18,3 +18,4 @@ export const LoginLoader = () => {
         </>
     )
 }
+export const aloha = Math.random() > 0.5 ? 'export const' : 'div'

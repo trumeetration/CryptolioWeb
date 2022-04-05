@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from "react"
-import {TablePortfolios} from "../components/Table/TablePortfolios";
+import {TableRecords} from "../components/Table/TableRecords";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {fetchGetPortfolios, updateSelectedPortfolio} from "../store/actions/authModalActions";
+import {
+    fetchGetPortfolioRecords,
+    fetchGetPortfolios,
+    updateSelectedPortfolio
+} from "../store/actions/authModalActions";
 import "./portfoliosStyles.css"
-import {Row} from "../components/Table/Row";
-import {LoginLoader} from "../UI/Loaders/loginLoader";
 import {ModalEditPortfolio} from "../components/Modals/ModalEditPortfolio";
 
-export const PortfoliosPageLayout = ({info, fetchGetPortfolios, updateSelectedPortfolio}) => {
+export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfolioRecords, updateSelectedPortfolio}) => {
     useEffect(() => {
         fetchGetPortfolios();
         updateIsOpenEditModal(false);
@@ -16,6 +18,7 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, updateSelectedPo
     }, [])
     const [IsOpenEditModal, updateIsOpenEditModal] = useState(false);               //состояние модального окна редактирования портфолио
     const [selectedPortfolioEdit, updateSelectedPortfolioEdit] = useState(null);    //id портфолио для редактирвоания
+    //console.log("--->", info.portfolioList);
     return (
         <div>
             {IsOpenEditModal && <ModalEditPortfolio updateIsOpenEditModal={updateIsOpenEditModal} updateSelectedPortfolioEdit={updateSelectedPortfolioEdit} id={selectedPortfolioEdit}/>}
@@ -34,7 +37,10 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, updateSelectedPo
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 {info.portfolioList ? info.portfolioList.map((row, id) => {
                                     return (<li className="d-flex justify-content-center align-items-center" style={{width: 240}}>
-                                        <div className="dropdown-item" onClick={() => updateSelectedPortfolio(id)}>
+                                        <div className="dropdown-item" onClick={() => {updateSelectedPortfolio(id);
+                                            fetchGetPortfolioRecords(info.portfolioList[id].id);
+                                            //console.log(info.portfolioList);
+                                        }}>
                                             <div className="d-flex justify-content-between align-items-center h6">
                                                 {info.portfolioList[id].portfolioName}
                                                 <div className="button-edit ps-2 pe-2 pb-2 text-center" onClick={() => {updateIsOpenEditModal(true); updateSelectedPortfolioEdit(id)}}>...</div>
@@ -51,7 +57,7 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, updateSelectedPo
                                 Your Assets
                             </div>
                         </div>
-                        <TablePortfolios />
+                        <TableRecords />
                     </div>
                 </div>
                 :
@@ -73,7 +79,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {fetchGetPortfolios, updateSelectedPortfolio},
+        {fetchGetPortfolios, fetchGetPortfolioRecords, updateSelectedPortfolio},
         dispatch
     );
 export const PortfoliosPage = connect(

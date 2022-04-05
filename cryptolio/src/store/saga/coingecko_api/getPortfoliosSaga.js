@@ -1,8 +1,9 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 import {FETCH_GET_PORTFOLIOS} from "../../types/authModalTypes";
 import {
+    fetchGetPortfolioRecords,
     setPortfolioList,
-    updateIsPortfoliosListLoading, updateSelectedPortfolio
+    updateSelectedPortfolio
 } from "../../actions/authModalActions";
 
 const getPortfolioList = () => {
@@ -20,15 +21,18 @@ const getPortfolioList = () => {
 }
 
 function* fetchGetPortfoliosWorker(info) {
-    yield put(updateIsPortfoliosListLoading(true));
+    //yield put(updateIsPortfoliosListLoading(true));
     const data = yield call(
         getPortfolioList,
     );
     const json = yield call(() => new Promise((res) => res(data.json())));
     //console.log(json['result']);
-    yield put(updateIsPortfoliosListLoading(false));
+    //yield put(updateIsPortfoliosListLoading(false));
     yield put(setPortfolioList(json['result']));
-    if (json['result'].length !== 0) yield put(updateSelectedPortfolio(0));
+    if (json['result'].length !== 0) {
+        yield put(updateSelectedPortfolio(0));
+        //yield put(fetchGetPortfolioRecords(0));
+    }
 }
 
 

@@ -12,7 +12,11 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {setActivePage} from "../../store/actions/activePageActions";
 import {Modal} from "../Modals/Modal";
-import {fetchVerifyToken, updateIsAuth, updateIsLoginModalVisible} from "../../store/actions/authModalActions";
+import {
+    fetchVerifyToken,
+    updateIsAuth,
+    updateIsLoginModalVisible
+} from "../../store/actions/authModalActions";
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
 import {Alerts} from "../Alerts/AlertsList";
 

@@ -21,7 +21,11 @@ import {
     UPDATE_CURRENT_COINS_LIST_PAGE,
     UPDATE_IS_COINS_LIST_LOADING,
     SET_PORTFOLIO_LIST,
-    UPDATE_IS_PORTFOLIOS_LIST_LOADING, FETCH_GET_PORTFOLIOS, UPDATE_SELECTED_PORTFOLIO,
+    FETCH_GET_PORTFOLIOS,
+    UPDATE_SELECTED_PORTFOLIO,
+    FETCH_GET_PORTFOLIO_RECORDS,
+    SET_PORTFOLIO_RECORDS_LIST,
+    UPDATE_IS_PORTFOLIO_RECORDS_LIST_LOADING, SET_ALL_COINS_LIST, FETCH_GET_COINS_DATA,
 } from "../types/authModalTypes";
 
 export const setLoginReg = (value) => ({
@@ -130,8 +134,8 @@ export const updateIsCoinsListLoading = (value) => ({
     value
 })
 
-export const updateIsPortfoliosListLoading = (value) => ({
-    type: UPDATE_IS_PORTFOLIOS_LIST_LOADING,
+export const updateIsPortfolioRecordsListLoading = (value) => ({
+    type: UPDATE_IS_PORTFOLIO_RECORDS_LIST_LOADING,
     value
 })
 
@@ -147,4 +151,25 @@ export const fetchGetPortfolios = () => ({
 export const updateSelectedPortfolio = (value) => ({
     type: UPDATE_SELECTED_PORTFOLIO,
     value
+})
+
+export const fetchGetPortfolioRecords = (id) => ({
+    type: FETCH_GET_PORTFOLIO_RECORDS,
+    id
+})
+
+export const setPortfolioRecordsList = (value) => ({
+    type: SET_PORTFOLIO_RECORDS_LIST,
+    value
+})
+
+export const setAllCoinsList = (value) => ({
+    type: SET_ALL_COINS_LIST,
+    value
+})
+
+export const fetchGetCoinsData = (ids, setData) => ({
+    type: FETCH_GET_COINS_DATA,
+    ids,
+    setData
 })
