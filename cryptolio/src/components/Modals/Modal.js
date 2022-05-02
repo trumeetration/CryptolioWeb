@@ -22,14 +22,11 @@ import {PasswordInput} from "../../UI/Inputs/passwordInput";
 const ModalLayout = ({info, setLoginReg, setEmailReg, setPasswordReg, setLoginLog, setEmailLog, setPasswordLog, updateModalMode, fetchCreateToken, updateIsLoginModalVisible}) => {
     //console.log(info);
     const loginHandler = () => {
-        let isError = false;
-        if (info.logLogin.trim()) {
-            isError = true;
+        let isSuccess = false;
+        if (info.logEmail.trim() !== '' && info.logPassword.trim() !== '') {
+            isSuccess = true;
         }
-        if (info.logPassword.trim()) {
-            isError = true;
-        }
-        if (isError) {
+        if (isSuccess) {
             fetchCreateToken(info.logEmail, info.logPassword);
         }
     }

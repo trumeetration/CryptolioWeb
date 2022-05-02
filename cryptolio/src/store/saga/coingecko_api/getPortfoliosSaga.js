@@ -31,7 +31,7 @@ function* fetchGetPortfoliosWorker(info) {
     yield put(setPortfolioList(json['result']));
     if (json['result'].length !== 0) {
         yield put(updateSelectedPortfolio(0));
-        //yield put(fetchGetPortfolioRecords(0));
+        yield put(fetchGetPortfolioRecords(json['result'][0].id));
     }
 }
 

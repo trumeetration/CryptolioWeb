@@ -1,0 +1,46 @@
+.rowTransaction {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    border: 0 solid rgba(0, 0, 0, 15%);
+    border-bottom-width: 1px;
+}
+
+.columnTransaction {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: end;
+    padding: 5px;
+    font-size: 12px;
+    height: 100%;
+    align-items: center;
+}
+
+.columnTransactionDate {
+    font-family: Roboto, serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    font-size: 12px;
+    height: 100%;
+    width: 25%;
+    align-items: end;
+}
+
+.columnTransaction11111 {
+    font-family: Roboto, serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    font-size: 12px;
+    height: 100%;
+    align-items: end;
+}
+
+.columnTransaction {
+    width: 25%;
+}

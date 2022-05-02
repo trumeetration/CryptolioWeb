@@ -19,7 +19,11 @@ import {
     UPDATE_IS_COINS_LIST_LOADING,
     SET_PORTFOLIO_LIST,
     UPDATE_SELECTED_PORTFOLIO,
-    SET_PORTFOLIO_RECORDS_LIST, UPDATE_IS_PORTFOLIO_RECORDS_LIST_LOADING, SET_ALL_COINS_LIST
+    SET_PORTFOLIO_RECORDS_LIST,
+    UPDATE_IS_PORTFOLIO_RECORDS_LIST_LOADING,
+    SET_ALL_COINS_LIST,
+    SET_SEARCH_COIN_LIST,
+    UPDATE_IS_DATA_LIST_LOADING, UPDATE_IS_ADD_PORTFOLIO_LOADING
 } from "../types/authModalTypes";
 
 const INITIAL_STATE = {
@@ -46,7 +50,9 @@ const INITIAL_STATE = {
     selectedPortfolio: null,
     portfolioRecordsList: null,
     isPortfolioRecordsListLoading: false,
-    allCoinsList: null,
+    searchCoinList: null,
+    isDataListLoading: false,
+    isAddPortfolioLoading: false,
 };
 
 export const authModalReducer = (state = INITIAL_STATE, action) => {
@@ -172,10 +178,20 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 portfolioRecordsList: action.value,
             }
-        case SET_ALL_COINS_LIST:
+        case SET_SEARCH_COIN_LIST:
             return {
                 ...state,
-                allCoinsList: action.value,
+                searchCoinList: action.value,
+            }
+        case UPDATE_IS_DATA_LIST_LOADING:
+            return {
+                ...state,
+                isDataListLoading: action.value,
+            }
+        case UPDATE_IS_ADD_PORTFOLIO_LOADING:
+            return {
+                ...state,
+                isAddPortfolioLoading: action.value,
             }
         default:
             return state;

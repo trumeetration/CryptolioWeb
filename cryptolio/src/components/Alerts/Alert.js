@@ -34,7 +34,7 @@ export const Alert = ({id, header, body, removeFun}) => {
                 <div style={{height: 20, width: 20, background: colorList[imgColor], marginRight: 5, borderRadius: 4}}/>
                     <strong className="me-auto">{header}</strong>
                     <small>{timer} секунд назад</small>
-                    <button onClick={() => {removeFun(id)}} type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    <button onClick={() => {removeFun(id)}} type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"/>
             </div>
             <div className="toast-body">
                 {body}

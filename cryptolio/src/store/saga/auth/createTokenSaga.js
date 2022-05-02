@@ -24,6 +24,7 @@ const fetchCreateToken = (email, password) => {
 
 function* fetchTokenCreateWorker(info) {
     yield put(updateIsLoginLoading(true));
+    console.log(info.login, info.password);
     const data = yield call(
         fetchCreateToken,
         info.login,
@@ -31,18 +32,16 @@ function* fetchTokenCreateWorker(info) {
     );
     if (data) {
         const json = yield call(() => new Promise((res) => res(data.json())));
-        //console.log(json); //DEBUG
         if (json.isError) {
             yield put(setRequestLoginError(true));
         } else {
-            yield put(updateIsAuth(true, json.message, json.token));
+            yield put(updateIsAuth(true, json.message));
             yield put(setRequestLoginError(false));
             //console.log(json);
             localStorage.setItem('accessToken', json.result);
             yield put(updateIsLoginModalVisible(false));
 
         }
-        //alert( document.cookie );
         yield put(updateIsLoginLoading(false));
     }
     else {
@@ -52,6 +51,6 @@ function* fetchTokenCreateWorker(info) {
     }
 }
 
-export function* tokenCreateWatcher() {
+export function* fetchTokenCreateWatcher() {
     yield takeEvery(FETCH_CREATE_TOKEN, fetchTokenCreateWorker);
 }

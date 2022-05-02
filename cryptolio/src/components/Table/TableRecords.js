@@ -12,54 +12,51 @@ const TableRecordsLayout = ({info}) => {
     },[])
     return (
         <div className="wrapper">
-            <div className="headTable">
-                <div className="columnTableHeadAsset font-monospace">
+            <div className="headTableRecords" style={{background: 'rgba(0,0,0,10%)'}}>
+                <div className="columnTableHeadAsset columnTableAsset font-monospace fw-bold">
                     Asset
                     <span className="arrow-down">
                         	&#9660;
                     </span>
                 </div>
-                <div className="columnTableHead font-monospace">
-                    Price
-                    <span className="arrow-down">
-                        	&#9660;
-                    </span>
-                </div>
-                <div className="columnTableHead font-monospace">
-                    Buy Price
-                    <span className="arrow-down">
-                        	&#9660;
-                    </span>
-                </div>
-                <div className="columnTableHead font-monospace">
+                <div className="columnTableHeadRecords columnTableAmount font-monospace fw-bold">
                     Amount
                     <span className="arrow-down">
                         	&#9660;
                     </span>
                 </div>
-                <div className="columnTableHead font-monospace">
-                    Date
+                <div className="columnTableHeadRecords columnTableBuyPrice font-monospace fw-bold">
+                    Avg Price
                     <span className="arrow-down">
                         	&#9660;
                     </span>
                 </div>
-                <div className="columnTableHead font-monospace">
-                    Notes
+                <div className="columnTableHeadRecords columnTablePrice font-monospace fw-bold">
+                    Market Price
                     <span className="arrow-down">
                         	&#9660;
                     </span>
+                </div>
+                <div className="columnTableHeadRecords columnTableTotal font-monospace fw-bold">
+                    Total
+                    <span className="arrow-down">
+                        	&#9660;
+                    </span>
+                </div>
+                <div className="columnButton">
+
                 </div>
             </div>
             {info.isPortfolioRecordsListLoading ?
-                <div className="gradient text-center rounded-3 bg-primary pt-5 pb-5"><LoginLoader/></div>
+                <div className="text-center rounded-3 pt-5 pb-5"><LoginLoader/></div>
             :
                 info.portfolioRecordsList &&
-                    info.portfolioRecordsList.length !== 0 ?
-                        info.portfolioRecordsList.map((row, id) => {
-                        return (<RowRecords recordsData={row}/>)
-                    })
-                        :
-                    <div className="h4">Пусто((</div>
+                    Object.keys(info.portfolioRecordsList).length !== 0 ?
+                        Object.keys(info.portfolioRecordsList).map((key, index) => {
+                            return (<RowRecords recordsData={info.portfolioRecordsList[key]}/>)
+                        })
+                    :
+                        <div className="h4">Пусто((</div>
             }
         </div>
     )

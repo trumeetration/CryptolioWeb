@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Table} from "../components/Table/Table";
+import {TableMarket} from "../components/Table/TableMarket";
 import {
     fetchGetCoins, updateCurrentCoinsListPage,
 } from "../store/actions/authModalActions";
@@ -28,7 +28,7 @@ const MarketLayout = ({info, fetchGetCoins, updateCurrentCoinsListPage}) => {
                     <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
-            <Table coinsList={info.coinsList}/>
+            <TableMarket coinsList={info.coinsList}/>
             <ul className="pagination column justify-content-start">
                 {info.currentCoinsListPage > 4 ?
                     <li className="page-item">

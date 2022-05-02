@@ -21,44 +21,100 @@
     }
 }
 
-.columnTableHead {
-    font-family: Roboto, serif;
+.headTableRecords {
     display: flex;
-    justify-content: end;
-    padding: 10px;
-    font-size: 14px;
-    width: 15%;
-    cursor: pointer;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+    height: 60px;
+    border: 0 solid rgba(0, 0, 0, 15%);
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+}
+
+.rowTableRecords {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    border: 0 solid rgba(0, 0, 0, 15%);
+    border-bottom-width: 1px;
 }
 
 .columnTableHeadAsset {
     font-family: Roboto, serif;
     display: flex;
     justify-content: start;
-    padding: 10px;
-    font-size: 14px;
-    width: 25%;
+    padding: 5px;
+    font-size: 12px;
+    height: 100%;
     cursor: pointer;
     align-items: center;
 }
 
-.columnTable {
-    font-family: Roboto, serif;
-    display: flex;
-    justify-content: end;
-    padding: 10px;
-    font-size: 14px;
-    width: 15%;
-    align-items: center;
-}
-
-.columnTableAsset {
+.columnTableAssetRecords {
     font-family: Roboto, serif;
     display: flex;
     justify-content: start;
-    padding: 10px;
-    font-size: 14px;
-    width: 25%;
+    padding: 5px;
+    font-size: 12px;
+    height: 100%;
     align-items: center;
+}
+
+.columnTableHeadRecords {
+    font-family: Roboto, serif;
+    display: flex;
+    justify-content: end;
+    padding: 5px;
+    font-size: 12px;
+    width: 14%;
+    height: 100%;
+    cursor: pointer;
+    align-items: center;
+}
+
+.columnTableRecords {
+    font-family: Roboto, serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    font-size: 12px;
+    height: 100%;
+    align-items: end;
+}
+
+.columnTableAsset {
+    width: 25%;
+}
+
+.columnTableAmount {
+    width: 15%;
+}
+
+.columnTablePrice {
+    width: 15%;
+}
+
+.columnTableBuyPrice {
+    width: 15%;
+}
+
+.columnTableTotal {
+    width: 15%;
+}
+
+.columnTableHeadAsset:hover .arrow-down {
+    visibility: visible;
+}
+
+.columnTableHeadRecords:hover .arrow-down {
+    visibility: visible;
+}
+
+.columnButton {
+    padding: 5px;
+    width: 15%;
 }

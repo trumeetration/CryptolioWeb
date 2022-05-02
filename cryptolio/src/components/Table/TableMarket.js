@@ -8,7 +8,7 @@ import {LoginLoader} from "../../UI/Loaders/loginLoader";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 
-const TableLayout = ({info, coinsList}) => {
+const TableMarketLayout = ({info, coinsList}) => {
     return (
         <div className="wrapper">
             <div className="headTable">
@@ -77,7 +77,7 @@ const mapDispatchToProps = (dispatch) =>
         {},
         dispatch
     );
-export const Table = connect(
+export const TableMarket = connect(
     mapStateToProps,
     mapDispatchToProps
-)(TableLayout);
+)(TableMarketLayout);

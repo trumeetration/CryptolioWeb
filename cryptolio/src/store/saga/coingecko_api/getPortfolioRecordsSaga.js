@@ -32,8 +32,7 @@ function* fetchGetPortfolioRecordsWorker({id}) {
         id
     );
     const json = yield call(() => new Promise((res) => res(data.json())));
-    //console.log(json['result']);
-
+    const preparedData = {};
     if (json['result'].length !== 0) {
         const arrIds = [];
         json['result'].map((el) => {
@@ -55,11 +54,15 @@ function* fetchGetPortfolioRecordsWorker({id}) {
                     el.marketPrice = elData.current_price;
                 }
             });
+            if (preparedData[el.coinId] !== undefined) {
+                preparedData[el.coinId].push(el);
+            }
+            else {
+                preparedData[el.coinId] = [el];
+            }
         });
-        //console.log("list->>>", json['result']);
-        //console.log("Data: ", coinData);
     }
-    yield put(setPortfolioRecordsList(json['result']));
+    yield put(setPortfolioRecordsList(preparedData));
     yield put(updateIsPortfolioRecordsListLoading(false));
 }
 
