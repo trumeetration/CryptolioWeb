@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import './styles.css';
 import {TextInput} from "../../UI/Inputs/textInput";
-import {fetchDeletePortfolio, fetchEditPortfolio} from "../../store/actions/authModalActions";
+import {fetchDeletePortfolio, fetchEditPortfolio, fetchGetPortfolios} from "../../store/actions/authModalActions";
 
 const ModalEditPortfolioLayout = ({info, updateIsOpenEditModal, updateSelectedPortfolioEdit, id, fetchEditPortfolio, fetchDeletePortfolio}) => {
     const [newNamePortfolio, setNewNamePortfolio] = useState('');
@@ -24,7 +24,7 @@ const ModalEditPortfolioLayout = ({info, updateIsOpenEditModal, updateSelectedPo
                 </div>
                 <div className="body-modal">
                     <TextInput label="Name" onTextChange={setNewNamePortfolio} oldText={info.portfolioList[id].portfolioName} styles={{marginBottom: 15}}/>
-                    <button className="btn btn-primary mt-3 text-nowrap w-100" onClick={() => {editPortfolioHandler()}}>Save</button>
+                    <button className="btn btn-primary mt-3 text-nowrap w-100" onClick={() => {editPortfolioHandler(); updateIsOpenEditModal(false)}}>Save</button>
                     {isConfirmationVisible ?
                         <div className="mt-3">
                             <div className="text-center font-monospace">
@@ -32,7 +32,7 @@ const ModalEditPortfolioLayout = ({info, updateIsOpenEditModal, updateSelectedPo
                             </div>
                             <div className="d-flex column justify-content-around">
                                 <button className="btn btn-outline-primary mt-2 text-nowrap" onClick={() => {updateIsConfirmationVisible(false)}} style={{width: '40%'}}>No</button>
-                                <button className="btn btn-outline-danger mt-2 text-nowrap " onClick={() => {fetchDeletePortfolio(info.portfolioList[id].id); updateSelectedPortfolioEdit(null); updateIsOpenEditModal(false)}} style={{width: '40%'}}>Yes</button>
+                                <button className="btn btn-outline-danger mt-2 text-nowrap " onClick={() => {fetchDeletePortfolio(info.portfolioList[id].id); updateSelectedPortfolioEdit(null); updateIsOpenEditModal(false);}} style={{width: '40%'}}>Yes</button>
                             </div>
                         </div>
                         :
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        { fetchEditPortfolio, fetchDeletePortfolio },
+        { fetchEditPortfolio, fetchDeletePortfolio},
         dispatch
     );
 export const ModalEditPortfolio = connect(

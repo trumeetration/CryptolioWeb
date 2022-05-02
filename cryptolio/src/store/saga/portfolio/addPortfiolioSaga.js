@@ -1,7 +1,7 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 import {FETCH_ADD_PORTFOLIO} from "../../types/authModalTypes";
 import {updateGlobalAlertList} from "../../actions/activePageActions";
-import {updateIsAddPortfolioLoading} from "../../actions/authModalActions";
+import {fetchGetPortfolios, updateIsAddPortfolioLoading} from "../../actions/authModalActions";
 
 const fetchAddPortfolio = (name) => {
     let myHeaders = new Headers();
@@ -31,11 +31,12 @@ function* fetchAddPortfolioWorker({name}) {
     if (data.status !== 400)
     {
         yield put(updateIsAddPortfolioLoading(false));
-        yield put(updateGlobalAlertList({id:Math.random(), header: `Success`, body: `Added new portfolio: ${name}`}))
+        yield put(updateGlobalAlertList({id:Math.random(), header: `Success`, body: `Added new portfolio: ${name}`}));
+        yield put(fetchGetPortfolios());
     }
     else {
         yield put(updateIsAddPortfolioLoading(false));
-        yield put(updateGlobalAlertList({id:Math.random(), header: `Failed`, body: `Portfolio with given name already exists`}))
+        yield put(updateGlobalAlertList({id:Math.random(), header: `Failed`, body: `Portfolio with given name already exists`}));
     }
 }
 

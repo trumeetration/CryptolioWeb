@@ -1,6 +1,6 @@
 .button-edit {
     cursor: pointer;
-    border-radius: 15px;
+    vertical-align: bottom !important;
 }
 
 .button-edit:hover {
@@ -37,4 +37,28 @@
 .addButton:hover {
     background-color: rgba(0, 0, 0, 30%);
     border-radius: 15px;
+}
+
+.portfoliosRow {
+    background-color: rgba(0, 0, 0, 10%);
+    cursor: pointer;
+    margin-top: 8px;
+    height: 60px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.portfoliosRow:hover {
+    transition: 0.3s;
+    transform: scale(1.1);
+}
+
+.portfoliosRowSelected {
+    background-color: #0d6efd;
+    cursor: default;
+    margin-top: 8px;
+    height: 60px;
+    border-radius: 10px;
+    transition: 0.3s;
+    color: white;
 }

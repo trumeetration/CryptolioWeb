@@ -26,6 +26,12 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
     const [selectedPortfolioEdit, updateSelectedPortfolioEdit] = useState(null);                //id портфолио для редактирвоания
     const [isAddPortfolioButtonVisible, updateIsAddPortfolioButtonVisible] = useState(true);    //видимость кнопки добавления портфолио
     const [nameAddedPortfolio, setNameAddedPortfolio] = useState('');
+    let filteredPortfolios = [];
+    if (info.portfolioList !== null) {
+        filteredPortfolios = info.portfolioList.sort(function(a, b) {
+            return a.id - b.id;
+        });
+    }
     if (document.getElementById('myDropdown') !== null) {
         let myDropdown = document.getElementById('myDropdown')
         myDropdown.addEventListener('hidden.bs.dropdown', function () {
@@ -44,10 +50,55 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
             {IsOpenAddRecordModal && <ModalAddRecord updateIsOpenAddRecordModal={updateIsOpenAddRecordModal}/>}
             {IsOpenEditModal && <ModalEditPortfolio updateIsOpenEditModal={updateIsOpenEditModal} updateSelectedPortfolioEdit={updateSelectedPortfolioEdit} id={selectedPortfolioEdit}/>}
             {info.isAuth && info.portfolioList ?
-                <div className="container d-flex flex-row">
-                    <div className="w-25 h5">
-                        Выбор портфолио
-                        <div className="dropdown mt-3" id="myDropdown">
+                <div className="container d-flex column">
+                    <div className="w-25">
+                        <div className="h5">
+                            Выбор портфолио
+                        </div>
+                        {info.portfolioList ? filteredPortfolios.map((row, id) => {
+                            return (
+                                info.selectedPortfolio === id ?
+                                    <div className="portfoliosRowSelected w-75 d-flex column align-items-center">
+                                        <div className="w-75 ps-2" onClick={() => {updateSelectedPortfolio(id);
+                                            fetchGetPortfolioRecords(info.portfolioList[id].id);
+                                        }}>
+                                            {info.portfolioList[id].portfolioName}
+                                        </div>
+                                        <div className="button-edit w-25 h-100 align-bottom text-center pt-3" onClick={() => {updateIsOpenEditModal(true); updateSelectedPortfolioEdit(id)}}>
+                                            ...
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="portfoliosRow w-75 d-flex column align-items-center">
+                                        <div className="w-75 ps-2" onClick={() => {updateSelectedPortfolio(id);
+                                            fetchGetPortfolioRecords(info.portfolioList[id].id);
+                                        }}>
+                                            {info.portfolioList[id].portfolioName}
+                                        </div>
+                                        <div className="button-edit w-25 h-100 align-bottom text-center pt-3" onClick={() => {updateIsOpenEditModal(true); updateSelectedPortfolioEdit(id)}}>
+                                            ...
+                                        </div>
+                                    </div>
+                            )
+                            })
+                            : <div className="d-flex justify-content-center mt-5">Пусто(</div>}
+                        <div className="mt-3">
+                            {isAddPortfolioButtonVisible ?
+                                <button className="addPortfolioButton" onClick={() => {updateIsAddPortfolioButtonVisible(false)}}>
+                                    Add portfolio
+                                </button>
+                                :
+                                info.isAddPortfolioLoading ?
+                                    <LoginLoader/>
+                                    :
+                                    <div className="d-flex justify-content-center align-items-center w-75" style={{transition: '1s'}}>
+                                        <TextInput onTextChange={setNameAddedPortfolio} label={'Name'}/>
+                                        <button className="addButton ms-2 mt-4" onClick={() => {addPortfolioHandler(); updateIsAddPortfolioButtonVisible(true);}}>+</button>
+                                    </div>
+                            }
+                        </div>
+                    </div>
+                        {/*<div className="dropdown mt-3" id="myDropdown">
                             <button className="btn btn-outline-primary dropdown-toggle w-75 text-start" type="button" id="dropdownMenuButton1"
                                     data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                 {info.selectedPortfolio !==null ?
@@ -88,8 +139,8 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
                                     }
                                 </div>
                             </ul>
-                        </div>
-                    </div>
+                        </div>*/}
+
                     <div className="flex-row w-75">
                         <div className="d-flex justify-content-between">
                             <div className="column navbar-brand">

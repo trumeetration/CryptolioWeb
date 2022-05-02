@@ -1,6 +1,7 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 import {updateGlobalAlertList} from "../../actions/activePageActions";
 import {FETCH_DELETE_PORTFOLIO, FETCH_EDIT_PORTFOLIO} from "../../types/authModalTypes";
+import {fetchGetPortfolios} from "../../actions/authModalActions";
 
 const request = (id) => {
     let myHeaders = new Headers();
@@ -28,7 +29,10 @@ function* fetchDeletePortfolioWorker({id}) {
         id,
     );
     if (data.status === 200)
+    {
         yield put(updateGlobalAlertList({id:Math.random(), header: `Success`, body: `Portfolio removed`}))
+        yield put(fetchGetPortfolios());
+    }
 }
 
 

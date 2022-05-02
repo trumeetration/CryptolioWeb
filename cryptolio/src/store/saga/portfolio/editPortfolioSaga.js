@@ -1,5 +1,5 @@
 import {call, put, takeEvery} from "redux-saga/effects";
-import {updateIsAddPortfolioLoading} from "../../actions/authModalActions";
+import {fetchGetPortfolios, updateIsAddPortfolioLoading} from "../../actions/authModalActions";
 import {updateGlobalAlertList} from "../../actions/activePageActions";
 import {FETCH_EDIT_PORTFOLIO} from "../../types/authModalTypes";
 
@@ -33,6 +33,7 @@ function* fetchEditPortfolioWorker({id, name}) {
     if (data.status !== 400)
     {
         yield put(updateGlobalAlertList({id:Math.random(), header: `Success`, body: `Portfolio edited`}))
+        yield put(fetchGetPortfolios());
     }
     else {
         yield put(updateGlobalAlertList({id:Math.random(), header: `Failed`, body: `Portfolio with given name already exists`}))
