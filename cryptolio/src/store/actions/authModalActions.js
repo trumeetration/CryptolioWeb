@@ -26,14 +26,26 @@ import {
     FETCH_GET_PORTFOLIO_RECORDS,
     SET_PORTFOLIO_RECORDS_LIST,
     UPDATE_IS_PORTFOLIO_RECORDS_LIST_LOADING,
-    SET_ALL_COINS_LIST,
     FETCH_GET_COINS_DATA,
     FETCH_SEARCH_COINS,
     SET_SEARCH_COIN_LIST,
     UPDATE_IS_DATA_LIST_LOADING,
     FETCH_ADD_PORTFOLIO,
     UPDATE_IS_ADD_PORTFOLIO_LOADING,
-    FETCH_EDIT_PORTFOLIO, FETCH_DELETE_PORTFOLIO,
+    FETCH_EDIT_PORTFOLIO,
+    FETCH_DELETE_PORTFOLIO,
+    UPDATE_IS_OPEN_ADD_RECORDS_MODAL,
+    UPDATE_SELECTED_COIN,
+    FETCH_ADD_PORTFOLIO_RECORDS,
+    FETCH_GET_COIN_HISTORY,
+    SET_COIN_HISTORY,
+    UPDATE_IS_OPEN_SEARCH_COIN,
+    UPDATE_IS_OPEN_CONFIRMATION_MODAL,
+    UPDATE_SELECTED_TRANSACTION_FOR_REMOVE,
+    FETCH_REMOVE_TRANSACTION,
+    UPDATE_REMOVE_TYPE,
+    UPDATE_SELECTED_COIN_FOR_REMOVE,
+    FETCH_REMOVE_COIN_WITH_TRANSACTIONS, FETCH_REGISTRATION, SET_REGISTRATION_ERROR,
 } from "../types/authModalTypes";
 
 export const setLoginReg = (value) => ({
@@ -80,6 +92,16 @@ export const fetchCreateToken = (login, password) => ({
     type: FETCH_CREATE_TOKEN,
     login,
     password
+})
+
+export const fetchRegistration = (data) => ({
+    type: FETCH_REGISTRATION,
+    data
+})
+
+export const setRegistrationError = (value) => ({
+    type: SET_REGISTRATION_ERROR,
+    value
 })
 
 export const updateIsAuth = (isAuth, username) => ({
@@ -212,4 +234,64 @@ export const fetchEditPortfolio = (id, name) => ({
 export const fetchDeletePortfolio = (id) => ({
     type: FETCH_DELETE_PORTFOLIO,
     id
+})
+
+export const updateIsOpenAddRecordsModal = (value) => ({
+    type: UPDATE_IS_OPEN_ADD_RECORDS_MODAL,
+    value
+})
+
+export const updateSelectedCoin = (value) => ({
+    type: UPDATE_SELECTED_COIN,
+    value
+})
+
+export const fetchAddPortfolioRecords = (data) => ({
+    type: FETCH_ADD_PORTFOLIO_RECORDS,
+    data
+})
+
+export const fetchGetCoinHistory = (data) => ({
+    type: FETCH_GET_COIN_HISTORY,
+    data
+})
+
+export const setCoinHistory = (value) => ({
+    type: SET_COIN_HISTORY,
+    value
+})
+
+export const updateIsOpenSearchCoinModal = (value) => ({
+    type: UPDATE_IS_OPEN_SEARCH_COIN,
+    value
+})
+
+export const updateIsOpenConfirmationModal = (value) => ({
+    type: UPDATE_IS_OPEN_CONFIRMATION_MODAL,
+    value
+})
+
+export const updateSelectedTransactionForRemove = (value) => ({
+    type: UPDATE_SELECTED_TRANSACTION_FOR_REMOVE,
+    value
+})
+
+export const updateSelectedCoinForRemove = (value) => ({
+    type: UPDATE_SELECTED_COIN_FOR_REMOVE,
+    value
+})
+
+export const fetchRemoveTransaction = (data) => ({
+    type: FETCH_REMOVE_TRANSACTION,
+    data
+})
+
+export const fetchRemoveCoinWithTransaction = (data) => ({
+    type: FETCH_REMOVE_COIN_WITH_TRANSACTIONS,
+    data
+})
+
+export const updateRemoveType = (value) => ({
+    type: UPDATE_REMOVE_TYPE,
+    value
 })

@@ -2,6 +2,7 @@ import {call, put, takeEvery} from "redux-saga/effects";
 import {fetchGetPortfolios, updateIsAddPortfolioLoading} from "../../actions/authModalActions";
 import {updateGlobalAlertList} from "../../actions/activePageActions";
 import {FETCH_EDIT_PORTFOLIO} from "../../types/authModalTypes";
+import {Url} from "../../../constans/global";
 
 const request = (id, name) => {
     let myHeaders = new Headers();
@@ -20,11 +21,10 @@ const request = (id, name) => {
         redirect: 'follow'
     };
 
-    return fetch("https://localhost:5001/portfolio/update", requestOptions);
+    return fetch(`${Url}/portfolio/update`, requestOptions);
 }
 
 function* fetchEditPortfolioWorker({id, name}) {
-    console.log(id, name);
     const data = yield call(
         request,
         id,

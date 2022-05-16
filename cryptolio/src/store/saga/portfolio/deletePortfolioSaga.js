@@ -2,6 +2,7 @@ import {call, put, takeEvery} from "redux-saga/effects";
 import {updateGlobalAlertList} from "../../actions/activePageActions";
 import {FETCH_DELETE_PORTFOLIO, FETCH_EDIT_PORTFOLIO} from "../../types/authModalTypes";
 import {fetchGetPortfolios} from "../../actions/authModalActions";
+import {Url} from "../../../constans/global";
 
 const request = (id) => {
     let myHeaders = new Headers();
@@ -19,11 +20,10 @@ const request = (id) => {
         redirect: 'follow'
     };
 
-    return fetch("https://localhost:5001/portfolio/delete", requestOptions);
+    return fetch(`${Url}/portfolio/delete`, requestOptions);
 }
 
 function* fetchDeletePortfolioWorker({id}) {
-    console.log(id);
     const data = yield call(
         request,
         id,

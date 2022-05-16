@@ -21,9 +21,17 @@ import {
     UPDATE_SELECTED_PORTFOLIO,
     SET_PORTFOLIO_RECORDS_LIST,
     UPDATE_IS_PORTFOLIO_RECORDS_LIST_LOADING,
-    SET_ALL_COINS_LIST,
     SET_SEARCH_COIN_LIST,
-    UPDATE_IS_DATA_LIST_LOADING, UPDATE_IS_ADD_PORTFOLIO_LOADING
+    UPDATE_IS_DATA_LIST_LOADING,
+    UPDATE_IS_ADD_PORTFOLIO_LOADING,
+    UPDATE_IS_OPEN_ADD_RECORDS_MODAL,
+    UPDATE_SELECTED_COIN,
+    SET_COIN_HISTORY,
+    UPDATE_IS_OPEN_SEARCH_COIN,
+    UPDATE_IS_OPEN_CONFIRMATION_MODAL,
+    UPDATE_SELECTED_TRANSACTION_FOR_REMOVE,
+    UPDATE_REMOVE_TYPE,
+    UPDATE_SELECTED_COIN_FOR_REMOVE, SET_REGISTRATION_ERROR
 } from "../types/authModalTypes";
 
 const INITIAL_STATE = {
@@ -39,6 +47,7 @@ const INITIAL_STATE = {
     username: null,
     requestLoginError: false,
     requestRegistrationError: false,
+    registrationError: '',
     isLoginLoading: false,
     isRegistrationLoading: false,
     isHiddenLoginButton: false,
@@ -53,6 +62,14 @@ const INITIAL_STATE = {
     searchCoinList: null,
     isDataListLoading: false,
     isAddPortfolioLoading: false,
+    isOpenAddRecordsModal: false,
+    isOpenSearchCoinModal: false,
+    selectedCoin: null,
+    coinHistory: null,
+    isOpenConfirmationModal: false,
+    selectedTransactionForRemove: null,
+    selectedCoinForRemove: null,
+    removeType: '',
 };
 
 export const authModalReducer = (state = INITIAL_STATE, action) => {
@@ -123,6 +140,11 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 requestRegistrationError: action.value,
             }
+        case SET_REGISTRATION_ERROR:
+            return {
+                ...state,
+                registrationError: action.value,
+            }
         case UPDATE_IS_LOGIN_LOADING:
             return {
                 ...state,
@@ -192,6 +214,48 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isAddPortfolioLoading: action.value,
+            }
+        case UPDATE_IS_OPEN_ADD_RECORDS_MODAL:
+            return {
+                ...state,
+                isOpenAddRecordsModal: action.value,
+            }
+        case UPDATE_IS_OPEN_SEARCH_COIN:
+        {
+            return {
+                ...state,
+                isOpenSearchCoinModal: action.value,
+            }
+        }
+        case UPDATE_SELECTED_COIN:
+            return {
+                ...state,
+                selectedCoin: action.value,
+            }
+        case SET_COIN_HISTORY:
+            return {
+                ...state,
+                coinHistory: action.value,
+            }
+        case UPDATE_IS_OPEN_CONFIRMATION_MODAL:
+            return {
+                ...state,
+                isOpenConfirmationModal: action.value,
+            }
+        case UPDATE_SELECTED_TRANSACTION_FOR_REMOVE:
+            return {
+                ...state,
+                selectedTransactionForRemove: action.value,
+            }
+        case UPDATE_SELECTED_COIN_FOR_REMOVE:
+            return {
+                ...state,
+                selectedCoinForRemove: action.value,
+            }
+        case UPDATE_REMOVE_TYPE:
+            return {
+                ...state,
+                removeType: action.value,
             }
         default:
             return state;

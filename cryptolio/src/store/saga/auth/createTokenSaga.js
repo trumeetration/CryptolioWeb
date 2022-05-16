@@ -2,6 +2,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import {FETCH_CREATE_TOKEN} from "../../types/authModalTypes";
 import {setRequestLoginError, updateIsAuth, updateIsLoginLoading, updateIsLoginModalVisible} from "../../actions/authModalActions";
 import {updateGlobalAlertList} from "../../actions/activePageActions";
+import {Url} from "../../../constans/global"
 
 const fetchCreateToken = (email, password) => {
     let myHeaders = new Headers();
@@ -19,12 +20,11 @@ const fetchCreateToken = (email, password) => {
         redirect: 'follow'
     };
 
-    return fetch("https://localhost:5001/users/login", requestOptions).catch(() => {});
+    return fetch(`${Url}/users/login`, requestOptions).catch(() => {});
 };
 
 function* fetchTokenCreateWorker(info) {
     yield put(updateIsLoginLoading(true));
-    console.log(info.login, info.password);
     const data = yield call(
         fetchCreateToken,
         info.login,
@@ -37,7 +37,6 @@ function* fetchTokenCreateWorker(info) {
         } else {
             yield put(updateIsAuth(true, json.message));
             yield put(setRequestLoginError(false));
-            //console.log(json);
             localStorage.setItem('accessToken', json.result);
             yield put(updateIsLoginModalVisible(false));
 

@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 
 const MarketLayout = ({info, fetchGetCoins, updateCurrentCoinsListPage}) => {
     useEffect(() => {
-        (info.coinsList === null && setTimeout(fetchGetCoins(info.currentCoinsListPage, 1000)));
+        (info.coinsList === null && setTimeout(fetchGetCoins(info.currentCoinsListPage), 1000));
     },[]);
     const updatePageHandler = (page) => {
         if (!info.isCoinsListLoading) {

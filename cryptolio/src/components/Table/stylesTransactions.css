@@ -30,17 +30,12 @@
     align-items: end;
 }
 
-.columnTransaction11111 {
-    font-family: Roboto, serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5px;
-    font-size: 12px;
-    height: 100%;
-    align-items: end;
+.columnTransactionButton {
+    align-items: center;
+    text-align: center;
+    width: 8%;
 }
 
 .columnTransaction {
-    width: 25%;
+    width: 23%;
 }

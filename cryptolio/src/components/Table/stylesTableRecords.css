@@ -87,7 +87,7 @@
 }
 
 .columnTableAsset {
-    width: 25%;
+    width: 20%;
 }
 
 .columnTableAmount {
@@ -95,7 +95,7 @@
 }
 
 .columnTablePrice {
-    width: 15%;
+    width: 20%;
 }
 
 .columnTableBuyPrice {
@@ -103,7 +103,7 @@
 }
 
 .columnTableTotal {
-    width: 15%;
+    width: 20%;
 }
 
 .columnTableHeadAsset:hover .arrow-down {
@@ -115,6 +115,6 @@
 }
 
 .columnButton {
-    padding: 5px;
-    width: 15%;
+    padding: 2px;
+    width: 5%;
 }

@@ -1,6 +1,11 @@
 import React from "react";
+import {
+    updateIsOpenConfirmationModal, updateRemoveType, updateSelectedTransactionForRemove
+} from "../../store/actions/authModalActions";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 
-export const Transaction = ({recordsData}) => {
+export const TransactionLayout = ({recordsData, updateIsOpenConfirmationModal, updateSelectedTransactionForRemove, updateRemoveType}) => {
     const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
     const optionsTime = { hour: 'numeric', minute: 'numeric' };
     return (
@@ -19,10 +24,16 @@ export const Transaction = ({recordsData}) => {
                     <div className="columnTransaction fw-bold font-monospace">
                         Notes
                     </div>
+                    <div className="columnTransaction fw-bold font-monospace">
+
+                    </div>
                 </div>
             </div>
-            {recordsData.map((el) => {
-                let date = new Date(el.buyTime);
+            {recordsData.filter((obj) => { if (obj.status === 'live') return obj} ).length !== 0 ?
+                recordsData
+                .filter((obj) => { if (obj.status === 'live' && obj.recordType !== 'follow') return obj} )
+                .map((el) => {
+                let date = new Date(el.txTime);
                 return (
                     <div className="d-flex justify-content-end">
                         <div className="rowTransaction w-100" style={{marginLeft: '10%'}}>
@@ -30,7 +41,7 @@ export const Transaction = ({recordsData}) => {
                                 {el.amount}
                             </div>
                             <div className="columnTransaction font-monospace">
-                                {el.buyPrice}
+                                {el.txPrice}
                             </div>
                             <div className="columnTransactionDate font-monospace">
                                 <div>{date.toLocaleDateString('ru', optionsDate)}</div>
@@ -39,10 +50,16 @@ export const Transaction = ({recordsData}) => {
                             <div className="columnTransaction font-monospace">
                                 {el.notes}
                             </div>
+                            <div className="columnTransactionButton font-monospace">
+                                <button className="btn btn-outline-secondary" onClick={() => {updateRemoveType('transaction'); updateSelectedTransactionForRemove(el); updateIsOpenConfirmationModal(true)}}>-</button>
+                            </div>
                         </div>
                     </div>
                 )
-            })}
+            })
+            :
+                <div className="h5 text-center">Пусто((</div>
+            }
             <div className="headTableRecords" style={{background: 'rgba(0,0,0,10%)'}}>
                 <div className="columnTableHeadAsset columnTableAsset font-monospace fw-bold">
                     Asset
@@ -77,7 +94,25 @@ export const Transaction = ({recordsData}) => {
                 <div className="columnButton">
 
                 </div>
+                <div className="columnButton">
+
+                </div>
             </div>
         </>
     )
 }
+
+const mapStateToProps = (state) => {
+    const info = state.authModalReducer;
+    return { info };
+};
+
+const mapDispatchToProps = (dispatch) =>
+    bindActionCreators(
+        {updateIsOpenConfirmationModal, updateSelectedTransactionForRemove, updateRemoveType},
+        dispatch
+    );
+export const Transaction = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TransactionLayout);

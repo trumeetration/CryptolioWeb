@@ -2,6 +2,7 @@ import {call, put, takeEvery} from "redux-saga/effects";
 import {FETCH_GET_PORTFOLIO_RECORDS} from "../../types/authModalTypes";
 import {setPortfolioRecordsList, updateIsPortfolioRecordsListLoading,
 } from "../../actions/authModalActions";
+import {Url} from "../../../constans/global";
 
 const getPortfolioRecords = (id) => {
 
@@ -14,7 +15,7 @@ const getPortfolioRecords = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://localhost:5001/portfolio/${id}`, requestOptions);
+    return fetch(`${Url}/portfolio/${id}`, requestOptions);
 }
 
 const getCoinsData = (idsStr) => {

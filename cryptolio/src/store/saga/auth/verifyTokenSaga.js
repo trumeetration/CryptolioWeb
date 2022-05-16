@@ -5,18 +5,19 @@ import {
     updateIsAuth,
 } from "../../actions/authModalActions";
 import {updateGlobalAlertList} from "../../actions/activePageActions";
+import {Url} from "../../../constans/global";
 
 const request = () => {
-    var myHeaders = new Headers();
+    let myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${localStorage.getItem('accessToken')}`);
 
-    var requestOptions = {
+    let requestOptions = {
         method: 'POST',
         headers: myHeaders,
         redirect: 'follow'
     };
 
-    return fetch("https://localhost:5001/users/verify", requestOptions).catch(() => {})
+    return fetch(`${Url}/users/verify`, requestOptions).catch(() => {})
 };
 
 function* fetchTokenVerifyWorker(info) {

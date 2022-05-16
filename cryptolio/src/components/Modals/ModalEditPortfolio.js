@@ -19,7 +19,10 @@ const ModalEditPortfolioLayout = ({info, updateIsOpenEditModal, updateSelectedPo
         <div className="modal">
             <div className="my-modal" style={{width: 300}}>
                 <div className="header-modal mb-4">
-                    <div className="h5">Edit <span className="text-primary">{info.portfolioList[id].portfolioName}</span></div>
+                    <div className="d-flex column tempName">
+                        <div className="h5">Edit</div>
+                        <div className="text-primary overflow-hidden h5 ms-2">{info.portfolioList[id].portfolioName}</div>
+                    </div>
                     <button type="button" className="btn-close" onClick={() => {updateIsOpenEditModal(false); updateSelectedPortfolioEdit(null); updateIsConfirmationVisible(false)}}/>
                 </div>
                 <div className="body-modal">

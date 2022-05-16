@@ -8,10 +8,16 @@ import {fetchSearchCoinsWatcher} from "./coingecko_api/searchCoinsSaga";
 import {fetchAddPortfolioWatcher} from "./portfolio/addPortfiolioSaga";
 import {fetchEditPortfolioWatcher} from "./portfolio/editPortfolioSaga";
 import {fetchDeletePortfolioWatcher} from "./portfolio/deletePortfolioSaga";
+import {fetchAddPortfolioRecordsWatcher} from "./portfolio/addPortfolioRecordsSaga";
+import {getCoinHistoryWatcher} from "./coingecko_api/getCoinHistorySaga";
+import {fetchRemoveTransactionWatcher} from "./portfolio/removeTransactionSaga";
+import {fetchRemoveCoinWithTransactionsWatcher} from "./portfolio/removeCoinWithTransactionsSaga";
+import {fetchRegistrationWatcher} from "./auth/registrationSaga";
 
 export function* rootWatcher() {
     yield all([
         fetchTokenCreateWatcher(),
+        fetchRegistrationWatcher(),
         getCoinsWatcher(),
         fetchSearchCoinsWatcher(),
         getPortfoliosWatcher(),
@@ -20,5 +26,9 @@ export function* rootWatcher() {
         fetchAddPortfolioWatcher(),
         fetchEditPortfolioWatcher(),
         fetchDeletePortfolioWatcher(),
+        fetchAddPortfolioRecordsWatcher(),
+        getCoinHistoryWatcher(),
+        fetchRemoveTransactionWatcher(),
+        fetchRemoveCoinWithTransactionsWatcher(),
     ]);
 }

@@ -18,12 +18,14 @@
     border: 1px solid rgba(0, 0, 0, 0.6);
     padding: 5px;
     border-radius: 5px;
+    transition: 0.3s;
 }
 
 .inputSearch:focus {
     border: 1px solid rgba(0, 158, 255, 0.7) !important;
     outline: none;
     border-radius: 5px;
+    transition: 0.3s;
 }
 
 .backButton {
@@ -42,7 +44,7 @@
 }
 
 .type-transaction-button {
-    width: 40%;
+    width: 30%;
     border: none;
     background-color: transparent;
     border-radius: 10px;
@@ -59,10 +61,24 @@
     cursor: default !important;
     color: #0d6efd;
     font-weight: bold;
-    width: 40%;
+    width: 30%;
     border: none;
     border-radius: 10px;
     transition: 0.3s;
     background-color: white;
 
+}
+
+.inputNote {
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border-radius: 5px;
+    min-height: 38px;
+    max-height: 200px;
+}
+
+.inputNote:focus {
+    border: 1px solid rgba(0, 158, 255, 0.7) !important;
+    outline: none;
+    border-radius: 5px;
 }

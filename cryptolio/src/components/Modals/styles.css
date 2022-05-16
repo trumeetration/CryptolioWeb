@@ -56,3 +56,8 @@
 .my-link {
     text-decoration: none;
 }
+
+.tempName {
+    max-width: 90%;
+    overflow: hidden;
+}

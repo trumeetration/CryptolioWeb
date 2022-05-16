@@ -5,6 +5,8 @@ import {
     setPortfolioList,
     updateSelectedPortfolio
 } from "../../actions/authModalActions";
+import {Url} from "../../../constans/global";
+import {updateGlobalAlertList} from "../../actions/activePageActions";
 
 const getPortfolioList = () => {
 
@@ -17,7 +19,7 @@ const getPortfolioList = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://localhost:5001/portfolio/user_portfolios", requestOptions);
+    return fetch(`${Url}/portfolio/user_portfolios`, requestOptions);
 }
 
 function* fetchGetPortfoliosWorker(info) {
@@ -25,13 +27,18 @@ function* fetchGetPortfoliosWorker(info) {
     const data = yield call(
         getPortfolioList,
     );
-    const json = yield call(() => new Promise((res) => res(data.json())));
-    //console.log(json['result']);
-    //yield put(updateIsPortfoliosListLoading(false));
-    yield put(setPortfolioList(json['result']));
-    if (json['result'].length !== 0) {
-        yield put(updateSelectedPortfolio(0));
-        yield put(fetchGetPortfolioRecords(json['result'][0].id));
+    if (data.status !== 401) {
+        const json = yield call(() => new Promise((res) => res(data.json())));
+        //console.log(json['result']);
+        //yield put(updateIsPortfoliosListLoading(false));
+        yield put(setPortfolioList(json['result']));
+        if (json['result'].length !== 0) {
+            yield put(updateSelectedPortfolio(0));
+            yield put(fetchGetPortfolioRecords(json['result'][0].id));
+        }
+    }
+    else {
+        yield put(updateGlobalAlertList({id:Math.random(), header: "Unauthorized", body: "You need to login"}))
     }
 }
 

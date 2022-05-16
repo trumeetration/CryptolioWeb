@@ -1,16 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import './styles.css';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {
-    updateIsLoginModalVisible,
     fetchCreateToken,
+    fetchRegistration,
     setEmailLog,
-    setEmailReg,
     setLoginLog,
-    setLoginReg,
     setPasswordLog,
-    setPasswordReg,
+    updateIsLoginModalVisible,
     updateModalMode
 } from "../../store/actions/authModalActions";
 import {Link} from "react-router-dom";
@@ -19,8 +17,11 @@ import {LoginLoader} from "../../UI/Loaders/loginLoader";
 import {TextInput} from "../../UI/Inputs/textInput";
 import {PasswordInput} from "../../UI/Inputs/passwordInput";
 
-const ModalLayout = ({info, setLoginReg, setEmailReg, setPasswordReg, setLoginLog, setEmailLog, setPasswordLog, updateModalMode, fetchCreateToken, updateIsLoginModalVisible}) => {
+const ModalLayout = ({info, setEmailLog, setPasswordLog, updateModalMode, fetchCreateToken, fetchRegistration, updateIsLoginModalVisible}) => {
     //console.log(info);
+    const [emailReg, setEmailReg] = useState('');
+    const [nicknameReg, setNicknameReg] = useState('');
+    const [passwordReg, setPasswordReg] = useState('');
     const loginHandler = () => {
         let isSuccess = false;
         if (info.logEmail.trim() !== '' && info.logPassword.trim() !== '') {
@@ -29,6 +30,24 @@ const ModalLayout = ({info, setLoginReg, setEmailReg, setPasswordReg, setLoginLo
         if (isSuccess) {
             fetchCreateToken(info.logEmail, info.logPassword);
         }
+    }
+    const registrationHandler = () => {
+        let isSuccess = false;
+        let emailIsCorrectly = false;
+        if (emailReg.trim() !== '' && nicknameReg.trim() !== '' && passwordReg.trim() !== '') {
+            isSuccess = true;
+        }
+        let re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
+        let valid = re.test(emailReg);
+        if (valid) {
+            emailIsCorrectly = true;
+            isSuccess = true;
+        }
+        else {
+            emailIsCorrectly = false;
+            isSuccess = false;
+        }
+        if (isSuccess) fetchRegistration({email: emailReg, nickname: nicknameReg, password: passwordReg});
     }
     return (
         <div className="modal">
@@ -48,7 +67,8 @@ const ModalLayout = ({info, setLoginReg, setEmailReg, setPasswordReg, setLoginLo
                         {info.updateIsLoginLoading ?
                         <div className="d-flex justify-content-center mt-3">
                             <LoginLoader />
-                        </div> :
+                        </div>
+                            :
                         <div className="btn btn-primary mt-3 w-100" onClick={()=>loginHandler()}>
                             Login
                         </div>
@@ -59,22 +79,23 @@ const ModalLayout = ({info, setLoginReg, setEmailReg, setPasswordReg, setLoginLo
                             </Link>
                         </div>
                     </div>
-                </div> :
+                </div>
+                :
                 <div className="my-modal">
                     <div className="header-modal mb-4">
                         <div className="h5">Create account</div>
                         <button type="button" className="btn-close" onClick={() => {updateIsLoginModalVisible(false); updateModalMode("login")}}/>
                     </div>
                     <div className="body-modal">
-                        <TextInput label="Login" onTextChange={setLoginReg} styles={{marginBottom: 15}}/>
+                        <TextInput label="Nickname" onTextChange={setNicknameReg} styles={{marginBottom: 15}}/>
                         <TextInput label="Email" onTextChange={setEmailReg} styles={{marginBottom: 15}}/>
                         <PasswordInput label="Password" onTextChange={setPasswordReg} styles={{marginBottom: 15}}/>
-                        {info.requestRegistrationError && <DangerAlert />}
+                        {info.requestRegistrationError && <DangerAlert text='Ошибка регистрации'/*text={info.registrationError}*//>}
                         {info.updateIsRegistrationLoading ?
                             <div className="d-flex justify-content-center">
                                 <LoginLoader />
                             </div> :
-                            <div className="btn btn-primary" onClick={()=>loginHandler()}>
+                            <div className="btn btn-primary" onClick={()=>registrationHandler()}>
                                 Registration
                             </div>
                         }
@@ -98,7 +119,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {setLoginReg, setEmailReg, setPasswordReg, setLoginLog, setEmailLog, setPasswordLog, updateModalMode, fetchCreateToken, updateIsLoginModalVisible},
+        {setLoginLog, setEmailLog, setPasswordLog, updateModalMode, fetchCreateToken, fetchRegistration, updateIsLoginModalVisible},
         dispatch
     );
 export const Modal = connect(

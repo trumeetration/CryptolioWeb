@@ -62,3 +62,7 @@
     transition: 0.3s;
     color: white;
 }
+
+.test {
+    overflow: hidden;
+}
