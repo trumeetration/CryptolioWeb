@@ -45,7 +45,18 @@ import {
     FETCH_REMOVE_TRANSACTION,
     UPDATE_REMOVE_TYPE,
     UPDATE_SELECTED_COIN_FOR_REMOVE,
-    FETCH_REMOVE_COIN_WITH_TRANSACTIONS, FETCH_REGISTRATION, SET_REGISTRATION_ERROR,
+    FETCH_REMOVE_COIN_WITH_TRANSACTIONS,
+    FETCH_REGISTRATION,
+    SET_REGISTRATION_ERROR,
+    IS_TRASH_OPEN,
+    FETCH_RECOVER_TRANSACTION,
+    UPDATE_IS_COIN_INFO_VISIBLE,
+    SET_COIN_INFO,
+    UPDATE_IS_COIN_INFO_LOADING,
+    FETCH_GET_COIN_INFO,
+    FETCH_GET_COIN_PRICE_BY_INTERVAL,
+    IS_CHARTS_INFO_LOADING,
+    SET_CHARTS_INFO, UPDATE_IS_CHARTS_INFO_LOADING,
 } from "../types/authModalTypes";
 
 export const setLoginReg = (value) => ({
@@ -68,9 +79,9 @@ export const setPasswordReg = (value) => ({
     value
 })
 
-export const fetchGetCoins = (currentCoinsListPage) => ({
+export const fetchGetCoins = (data) => ({
     type: FETCH_GET_COINS,
-    currentCoinsListPage
+    data
 })
 
 export const setLoginLog = (value) => ({
@@ -293,5 +304,50 @@ export const fetchRemoveCoinWithTransaction = (data) => ({
 
 export const updateRemoveType = (value) => ({
     type: UPDATE_REMOVE_TYPE,
+    value
+})
+
+export const updateIsTrashOpen = (value) => ({
+    type: IS_TRASH_OPEN,
+    value
+})
+
+export const fetchRecoverTransaction = (id) => ({
+    type: FETCH_RECOVER_TRANSACTION,
+    id
+})
+
+export const updateIsCoinInfoVisible = (value) => ({
+    type: UPDATE_IS_COIN_INFO_VISIBLE,
+    value
+})
+
+export const fetchGetCoinInfo = (id) => ({
+    type: FETCH_GET_COIN_INFO,
+    id
+})
+
+export const setCoinInfo = (value) => ({
+    type: SET_COIN_INFO,
+    value
+})
+
+export const updateIsCoinInfoLoading = (value) => ({
+    type: UPDATE_IS_COIN_INFO_LOADING,
+    value
+})
+
+export const fetchGetCoinPriceByInterval = (data) => ({
+    type: FETCH_GET_COIN_PRICE_BY_INTERVAL,
+    data
+})
+
+export const updateIsChartsInfoLoading = (value) => ({
+    type: UPDATE_IS_CHARTS_INFO_LOADING,
+    value
+})
+
+export const setChartsInfo = (value) => ({
+    type: SET_CHARTS_INFO,
     value
 })

@@ -53,24 +53,26 @@ const TableRecordsLayout = ({info}) => {
             {info.isPortfolioRecordsListLoading ?
                 <div className="text-center rounded-3 pt-5 pb-5"><LoginLoader/></div>
             :
-                info.portfolioRecordsList &&
-                    (Object.keys(info.portfolioRecordsList)
+                info.portfolioRecordsList !== null ?
+                    !info.isTrashOpen ?
+                    Object.keys(info.portfolioRecordsList)
                         .map((el) => {
                             return (info.portfolioRecordsList[el]
-                                .filter((obj) => {if (obj.status === 'live' && obj.recordType !== 'follow') return obj })
-                            ).length !== 0 &&
+                                        .filter((obj) => {if (obj.status === 'live' /*&& obj.recordType !== 'follow'*/) return obj })
+                                ).length !== 0 &&
                                 <RowRecords recordsData={info.portfolioRecordsList[el]} coinName={el}/>
-                        }))
-                        //.length === 0 && <div className="h4">Пусто((</div>
-
-                        /*Object.keys(info.portfolioRecordsList)
-                            .map((key) => {
-                            return (<RowRecords recordsData={info.portfolioRecordsList[key]} coinName={key}/>)
-                        })*/
-                    /*:
-                        <div className="h4">Пусто((</div>*/
+                        })
+                    :
+                        Object.keys(info.portfolioRecordsList)
+                            .map((el) => {
+                                return (info.portfolioRecordsList[el]
+                                            .filter((obj) => {if (obj.status === 'trash' /*&& obj.recordType !== 'follow'*/) return obj })
+                                    ).length !== 0 &&
+                                    <RowRecords recordsData={info.portfolioRecordsList[el]} coinName={el}/>
+                            })
+                    :
+                    <div className="text-center rounded-3 pt-5 pb-5"><LoginLoader/></div>
             }
-            {/*size === 0 && <div className="h4">Пусто((</div>*/}
         </div>
     )
 }

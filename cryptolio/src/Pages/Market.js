@@ -8,12 +8,13 @@ import {connect} from "react-redux";
 
 const MarketLayout = ({info, fetchGetCoins, updateCurrentCoinsListPage}) => {
     useEffect(() => {
-        (info.coinsList === null && setTimeout(fetchGetCoins(info.currentCoinsListPage), 1000));
-    },[]);
+        (info.coinsList === null && fetchGetCoins({currentCoinsListPage: info.currentCoinsListPage, coinsPerPage: info.coinsPerPage}));
+        //if (info.coinsList === null) fetchGetCoins(info.currentCoinsListPage);
+    },[info.currentCoinsListPage]);
     const updatePageHandler = (page) => {
         if (!info.isCoinsListLoading) {
             updateCurrentCoinsListPage(page);
-            fetchGetCoins(page)
+            fetchGetCoins({currentCoinsListPage: page, coinsPerPage: info.coinsPerPage})
         }
     }
     return (
@@ -64,30 +65,30 @@ const MarketLayout = ({info, fetchGetCoins, updateCurrentCoinsListPage}) => {
                 }
                 <li className="page-item"><a className="page-link bg-primary text-white">{info.currentCoinsListPage}</a></li>
 
-                {info.currentCoinsListPage + 1 < Math.ceil(info.coinsListSize/100) + 1 &&
+                {info.currentCoinsListPage + 1 < Math.ceil(info.coinsListSize/info.coinsPerPage) + 1 &&
                     <li className="page-item"><a className="page-link" onClick={() => updatePageHandler(info.currentCoinsListPage + 1)}>{info.currentCoinsListPage + 1}</a>
                     </li>
                 }
-                {info.currentCoinsListPage + 2 < Math.ceil(info.coinsListSize/100) + 1 &&
+                {info.currentCoinsListPage + 2 < Math.ceil(info.coinsListSize/info.coinsPerPage) + 1 &&
                     <li className="page-item"><a className="page-link" onClick={() => updatePageHandler(info.currentCoinsListPage + 2)}>{info.currentCoinsListPage + 2}</a>
                     </li>
                 }
-                {(info.currentCoinsListPage + 3 < Math.ceil(info.coinsListSize/100) + 1 && info.currentCoinsListPage + 4 > Math.ceil(info.coinsListSize/100)) &&
+                {(info.currentCoinsListPage + 3 < Math.ceil(info.coinsListSize/info.coinsPerPage) + 1 && info.currentCoinsListPage + 4 > Math.ceil(info.coinsListSize/info.coinsPerPage)) &&
                     <li className="page-item"><a className="page-link" onClick={() => updatePageHandler(info.currentCoinsListPage + 3)}>{info.currentCoinsListPage + 3}</a>
                     </li>
                 }
 
-                {info.currentCoinsListPage < Math.ceil(info.coinsListSize/100) - 3  ?
+                {info.currentCoinsListPage < Math.ceil(info.coinsListSize/info.coinsPerPage) - 3  ?
                     <>
                         <li className="page-item"><a className="page-link">...</a></li>
-                        <li className="page-item"><a className="page-link" onClick={() => updatePageHandler(Math.ceil(info.coinsListSize/100))}>{Math.ceil(info.coinsListSize/100)}</a></li>
+                        <li className="page-item"><a className="page-link" onClick={() => updatePageHandler(Math.ceil(info.coinsListSize/info.coinsPerPage))}>{Math.ceil(info.coinsListSize/info.coinsPerPage)}</a></li>
                     </>
                     :
                     <>
                     </>
                 }
 
-                {info.currentCoinsListPage < Math.ceil(info.coinsListSize/100) ?
+                {info.currentCoinsListPage < Math.ceil(info.coinsListSize/info.coinsPerPage) ?
                     <li className="page-item">
                         <a className="page-link" onClick={() => updatePageHandler(info.currentCoinsListPage + 1)} aria-label="Previous">
                             <span aria-hidden="true">&raquo;</span>

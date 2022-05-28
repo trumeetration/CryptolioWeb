@@ -5,8 +5,9 @@ import './styles.css';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
+import {updateIsCoinInfoVisible, updateSelectedCoin} from "../../store/actions/authModalActions";
 
-const RowLayout = ({info, id, coinData}) => {
+const RowLayout = ({info, id, coinData, updateSelectedCoin, updateIsCoinInfoVisible}) => {
     return (
         <div className="rowTable text-center">
             {info.isCoinsListLoading ?
@@ -22,6 +23,7 @@ const RowLayout = ({info, id, coinData}) => {
                     <div className="columnTableAsset currency-name font-monospace">
                         <img src={coinData.image} width={35} height={35} alt={"alt"} className="rounded-circle"/>
                         <div className="ms-3">{coinData.name}</div>
+                        <button className="btn btn-outline-secondary m-2" style={{borderRadius: '30px'}} onClick={() => {updateSelectedCoin(coinData); updateIsCoinInfoVisible(true)}}>i</button>
                     </div>
                     <div className="columnTable font-monospace text-primary">
                         ${coinData.marketPrice}
@@ -47,8 +49,8 @@ const RowLayout = ({info, id, coinData}) => {
                         <div>
                             <div className="chart-wrapper" style={{backgroundColor: ''}}>
                                 <Sparklines data={coinData.sparkleData} style={{width: '100%', height: 50}}>
-                                    <SparklinesLine color={coinData.sparkleData[0] < coinData.sparkleData[coinData.sparkleData.length -1] ? "green"
-                                        : (coinData.sparkleData[0] > coinData.sparkleData[coinData.sparkleData.length -1]) ? "red"
+                                    <SparklinesLine color={coinData.sparkleData[0] < coinData.sparkleData[coinData.sparkleData.length - 1] ? "green"
+                                        : (coinData.sparkleData[0] > coinData.sparkleData[coinData.sparkleData.length - 1]) ? "red"
                                             :"grey"}/>
                                 </Sparklines>
                             </div>
@@ -67,7 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {},
+        {updateSelectedCoin, updateIsCoinInfoVisible},
         dispatch
     );
 export const Row = connect(

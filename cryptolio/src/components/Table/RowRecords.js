@@ -37,7 +37,7 @@ const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updat
                 </div>
                 <div className="columnTableRecords columnTableAmount font-monospace">
                     {recordsData
-                        .filter((obj) => { if (obj.status === 'live') return obj} )
+                        //.filter((obj) => { if (obj.status === 'live') return obj} )
                         .map((el) => {
                         finalAmount += el.amount;
                         avgPrice += el.txPrice;
@@ -45,10 +45,16 @@ const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updat
                     {finalAmount}
                 </div>
                 <div className="columnTableRecords columnTableBuyPrice font-monospace">
-                    {recordsData.filter((obj) => { if (obj.status === 'live') return obj} ).length > 0 ?
-                        (avgPrice/recordsData.filter((obj) => { if (obj.status === 'live') return obj} ).length).toLocaleString('en', { style: 'currency', currency: 'USD'})
+                    {recordsData
+                        //.filter((obj) => { if (obj.status === 'live') return obj} )
+                        .length > 0 ?
+                        (avgPrice/recordsData
+                            //.filter((obj) => { if (obj.status === 'live') return obj} )
+                            .length).toLocaleString('en', { style: 'currency', currency: 'USD'})
                     :
-                        recordsData.filter((obj) => { if (obj.status === 'live') return obj} ).length.toLocaleString('en', { style: 'currency', currency: 'USD'})
+                        recordsData
+                            //.filter((obj) => { if (obj.status === 'live') return obj} )
+                            .length.toLocaleString('en', { style: 'currency', currency: 'USD'})
                     }
                 </div>
                 <div className="columnTableRecords columnTablePrice font-monospace">
@@ -62,11 +68,13 @@ const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updat
                         \/
                     </button>
                 </div>
-                <div className="columnButton d-flex justify-content-center">
-                    <button className="btn btn-outline-secondary" onClick={() => { searchCoin(coinName); updateIsOpenAddRecordsModal(true) }}>
-                        +
-                    </button>
-                </div>
+                {!info.isTrashOpen &&
+                    <div className="columnButton d-flex justify-content-center">
+                        <button className="btn btn-outline-secondary" onClick={() => { searchCoin(coinName); updateIsOpenAddRecordsModal(true) }}>
+                            +
+                        </button>
+                    </div>
+                }
                 <div className="columnButton d-flex justify-content-center">
                     <button className="btn btn-outline-secondary" onClick={() => { updateRemoveType('coin'); updateSelectedCoinForRemove(coinName); updateIsOpenConfirmationModal(true) }}>
                         -

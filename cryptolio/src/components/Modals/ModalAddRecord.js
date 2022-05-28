@@ -72,7 +72,7 @@ const ModalAddRecordLayout = ({info, updateIsOpenAddRecordsModal, updateSelected
         if (isSell) transactionType = 'sell';
         if (isBuy) transactionType = 'buy';
         if (isFollow) transactionType = 'follow';
-        console.log(isSuccess);
+        //console.log(isSuccess);
         if (isSuccess) {
             updateIsOpenAddRecordsModal(false);
             const dt = Date.parse(transactionDate + ' ' + transactionTime);
@@ -81,8 +81,8 @@ const ModalAddRecordLayout = ({info, updateIsOpenAddRecordsModal, updateSelected
             fetchAddPortfolioRecords({
                 portfolioId: info.portfolioList[info.selectedPortfolio].id,
                 coinId: info.selectedCoin.id,
-                buyTime: dt / 1000,
-                buyPrice: marketPrice,
+                txTime: dt / 1000,
+                txPrice: marketPrice,
                 amount: amount,
                 note: note,
                 recordType: transactionType

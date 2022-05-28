@@ -1,22 +1,16 @@
-import {call, put, takeEvery} from "redux-saga/effects";
-import {FETCH_ADD_PORTFOLIO_RECORDS} from "../../types/authModalTypes";
 import {Url} from "../../../constans/global";
+import {call, put, takeEvery} from "redux-saga/effects";
+import {FETCH_EDIT_PORTFOLIO, FETCH_RECOVER_TRANSACTION} from "../../types/authModalTypes";
 import {updateGlobalAlertList} from "../../actions/activePageActions";
 import {fetchGetPortfolios} from "../../actions/authModalActions";
 
-const request = (data) => {
+const request = (id) => {
     let myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${localStorage.getItem('accessToken')}`);
     myHeaders.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
-        "portfolioId": data.portfolioId,
-        "coinId": data.coinId,
-        "txTime": data.txTime,
-        "txPrice": data.txPrice,
-        "amount": data.amount,
-        "note": data.note,
-        "recordType": data.recordType
+        "recordId": id
     });
 
     let requestOptions = {
@@ -26,17 +20,17 @@ const request = (data) => {
         redirect: 'follow'
     };
 
-    return fetch(`${Url}/portfolio/add`, requestOptions);
+    return fetch(`${Url}/portfolio/recover`, requestOptions);
 }
 
-export function* fetchAddPortfolioRecordsWorker ({data}) {
+export function* fetchRecoverTransactionWorker({id}) {
     const answer = yield call(
         request,
-        data
+        id,
     );
     if (answer.status !== 400)
     {
-        yield put(updateGlobalAlertList({id:Math.random(), header: `Success`, body: `Transaction added to portfolio`}))
+        yield put(updateGlobalAlertList({id:Math.random(), header: `Success`, body: `Transaction recovered`}))
         yield put(fetchGetPortfolios());
     }
     else {
@@ -44,6 +38,6 @@ export function* fetchAddPortfolioRecordsWorker ({data}) {
     }
 }
 
-export function* fetchAddPortfolioRecordsWatcher() {
-    yield takeEvery(FETCH_ADD_PORTFOLIO_RECORDS, fetchAddPortfolioRecordsWorker);
+export function* fetchRecoverTransactionWatcher() {
+    yield takeEvery(FETCH_RECOVER_TRANSACTION, fetchRecoverTransactionWorker);
 }

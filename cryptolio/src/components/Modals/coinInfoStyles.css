@@ -1,0 +1,33 @@
+.my-btn {
+    transition: 300ms;
+    padding: 10px;
+    width: 60px;
+    background-color: transparent;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 50%);
+    border-bottom: 1px solid rgba(0, 0, 0, 50%);
+    border-right: 1px solid rgba(0, 0, 0, 50%);
+    font-weight: 600;
+    color: rgba(0, 0, 0, 70%);
+}
+
+.my-btn-left {
+    border-left: 1px solid rgba(0, 0, 0, 50%);
+    border-radius: 10px 0 0 10px;
+}
+
+.my-btn-right {
+    border-radius: 0 10px 10px 0;
+}
+
+.my-btn:hover {
+    transition: 0.3s;
+    background-color: rgba(0, 0, 0, 10%);
+}
+
+.my-btn:focus {
+    transition: 0.3s;
+    color: rgba(13, 94, 255, 60%);
+    border-color: rgba(13, 94, 255, 60%);
+    background-color: rgba(13, 94, 255, 10%);
+}

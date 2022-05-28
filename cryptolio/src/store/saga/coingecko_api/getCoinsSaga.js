@@ -4,14 +4,14 @@ import {
     setCoinsList, setCoinsListSize, updateIsCoinsListLoading
 } from "../../actions/authModalActions";
 
-const getCoinsList = (currentCoinsListPage) => {
+const getCoinsList = (currentCoinsListPage, coinsPerPage) => {
 
     let requestOptions = {
         method: 'GET',
         redirect: 'follow'
     };
 
-    return fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${currentCoinsListPage}&sparkline=true&price_change_percentage=1h,24h,7d`, requestOptions);
+    return fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${currentCoinsListPage}&sparkline=true&price_change_percentage=1h,24h,7d`, requestOptions);
 }
 
 const getCoinsListSize = () => {
@@ -22,16 +22,18 @@ const getCoinsListSize = () => {
     return fetch(`https://api.coingecko.com/api/v3/coins/list`, requestOptions);
 }
 
-function* fetchGetCoinsWorker(info) {
+export function* fetchGetCoinsWorker({data}) {
+    //console.log(data)
     yield put(updateIsCoinsListLoading(true));
     const data_2 = yield call(
         getCoinsListSize,
     );
-    const data = yield call(
+    const answer = yield call(
         getCoinsList,
-        info.currentCoinsListPage,
+        data.currentCoinsListPage,
+        data.coinsPerPage,
     );
-    const json = yield call(() => new Promise((res) => res(data.json())));
+    const json = yield call(() => new Promise((res) => res(answer.json())));
     const allCoins = yield call(() => new Promise((res) => res(data_2.json())));
     yield put(setCoinsListSize(allCoins.length));
     const preparedData = json.map(el => ({

@@ -60,7 +60,7 @@ const TableMarketLayout = ({info, coinsList}) => {
                 </div>
             </div>
             {coinsList ? coinsList.map((row, id) => {
-                return (<Row id={(info.currentCoinsListPage - 1) * 100 + id + 1} coinData={row}/>)
+                return (<Row id={(info.currentCoinsListPage - 1) * 10 + id + 1} coinData={row}/>)
             }) : <div className="d-flex justify-content-center mt-5"><LoginLoader /></div>}
         </div>
 

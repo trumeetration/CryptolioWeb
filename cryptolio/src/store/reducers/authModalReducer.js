@@ -31,7 +31,11 @@ import {
     UPDATE_IS_OPEN_CONFIRMATION_MODAL,
     UPDATE_SELECTED_TRANSACTION_FOR_REMOVE,
     UPDATE_REMOVE_TYPE,
-    UPDATE_SELECTED_COIN_FOR_REMOVE, SET_REGISTRATION_ERROR
+    UPDATE_SELECTED_COIN_FOR_REMOVE,
+    SET_REGISTRATION_ERROR,
+    IS_TRASH_OPEN,
+    UPDATE_IS_COIN_INFO_VISIBLE,
+    UPDATE_IS_COIN_INFO_LOADING, SET_COIN_INFO, SET_CHARTS_INFO, UPDATE_IS_CHARTS_INFO_LOADING
 } from "../types/authModalTypes";
 
 const INITIAL_STATE = {
@@ -54,6 +58,7 @@ const INITIAL_STATE = {
     coinsList: null,
     coinsListSize: 0,
     currentCoinsListPage: 1,
+    coinsPerPage: 10,
     isCoinsListLoading: false,
     portfolioList: null,
     selectedPortfolio: null,
@@ -70,6 +75,12 @@ const INITIAL_STATE = {
     selectedTransactionForRemove: null,
     selectedCoinForRemove: null,
     removeType: '',
+    isTrashOpen: false,
+    isCoinInfoVisible: false,
+    coinInfo: null,
+    isCoinInfoLoading: true,
+    isChartsInfoLoading: true,
+    chartsInfo: null,
 };
 
 export const authModalReducer = (state = INITIAL_STATE, action) => {
@@ -256,6 +267,36 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 removeType: action.value,
+            }
+        case IS_TRASH_OPEN:
+            return {
+                ...state,
+                isTrashOpen: action.value,
+            }
+        case UPDATE_IS_COIN_INFO_VISIBLE:
+            return {
+                ...state,
+                isCoinInfoVisible: action.value,
+            }
+        case UPDATE_IS_COIN_INFO_LOADING:
+            return {
+                ...state,
+                isCoinInfoLoading: action.value,
+            }
+        case SET_COIN_INFO:
+            return {
+                ...state,
+                coinInfo: action.value,
+            }
+        case UPDATE_IS_CHARTS_INFO_LOADING:
+            return {
+                ...state,
+                isChartsInfoLoading: action.value,
+            }
+        case SET_CHARTS_INFO:
+            return {
+                ...state,
+                chartsInfo: action.value,
             }
         default:
             return state;

@@ -5,7 +5,12 @@ import {connect} from "react-redux";
 import {
     fetchAddPortfolio,
     fetchGetPortfolioRecords,
-    fetchGetPortfolios, fetchSearchCoins, updateIsOpenAddRecordsModal, updateIsOpenSearchCoinModal, updateSelectedCoin,
+    fetchGetPortfolios,
+    fetchSearchCoins,
+    updateIsOpenAddRecordsModal,
+    updateIsOpenSearchCoinModal,
+    updateIsTrashOpen,
+    updateSelectedCoin,
     updateSelectedPortfolio
 } from "../store/actions/authModalActions";
 import "./portfoliosStyles.css"
@@ -16,7 +21,9 @@ import {LoginLoader} from "../UI/Loaders/loginLoader";
 import {ModalSearchCoin} from "../components/Modals/ModalSearchCoin";
 import {ModalRemoveConfirmation} from "../components/Modals/ModalRemoveConfirmation";
 
-export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfolioRecords, updateSelectedPortfolio, fetchAddPortfolio, updateIsOpenAddRecordsModal, fetchSearchCoins, updateSelectedCoin, updateIsOpenSearchCoinModal}) => {
+export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfolioRecords, updateSelectedPortfolio,
+                                         fetchAddPortfolio, updateIsOpenAddRecordsModal, fetchSearchCoins, updateSelectedCoin,
+                                         updateIsOpenSearchCoinModal, updateIsTrashOpen}) => {
     useEffect(() => {
         fetchGetPortfolios();
         updateIsOpenAddRecordsModal(false);
@@ -38,12 +45,12 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
             return a.id - b.id;
         });
     }
-    if (document.getElementById('myDropdown') !== null) {
+    /*if (document.getElementById('myDropdown') !== null) {
         let myDropdown = document.getElementById('myDropdown')
         myDropdown.addEventListener('hidden.bs.dropdown', function () {
             updateIsAddPortfolioButtonVisible(true);
         })
-    }
+    }*/
     const addPortfolioHandler = () => {
         if (nameAddedPortfolio.trim() !== '') {
             fetchAddPortfolio(nameAddedPortfolio);
@@ -107,8 +114,13 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
                     </div>
                     <div className="flex-row w-75">
                         <div className="d-flex justify-content-between">
-                            <div className="column navbar-brand">
-                                Транзакции
+                            <div className="d-flex column justify-content-center w-100">
+                                <button className="btn btn-primary column navbar-brand" onClick={() => {updateIsTrashOpen(false)}}>
+                                    Транзакции
+                                </button>
+                                <button className="btn btn-primary column navbar-brand" onClick={() => {updateIsTrashOpen(true)}}>
+                                    Корзина
+                                </button>
                             </div>
                             {info.selectedPortfolio !== null &&
                                 <button className="btn btn-outline-primary" onClick={() => {updateSelectedCoin(null); updateIsOpenSearchCoinModal(true)}}>Добавить</button>
@@ -136,7 +148,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {fetchGetPortfolios, fetchGetPortfolioRecords, updateSelectedPortfolio, fetchAddPortfolio, updateIsOpenAddRecordsModal, fetchSearchCoins, updateSelectedCoin, updateIsOpenSearchCoinModal},
+        {fetchGetPortfolios, fetchGetPortfolioRecords, updateSelectedPortfolio, fetchAddPortfolio,
+            updateIsOpenAddRecordsModal, fetchSearchCoins, updateSelectedCoin, updateIsOpenSearchCoinModal,
+            updateIsTrashOpen},
         dispatch
     );
 export const PortfoliosPage = connect(

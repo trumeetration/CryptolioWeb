@@ -13,6 +13,9 @@ import {getCoinHistoryWatcher} from "./coingecko_api/getCoinHistorySaga";
 import {fetchRemoveTransactionWatcher} from "./portfolio/removeTransactionSaga";
 import {fetchRemoveCoinWithTransactionsWatcher} from "./portfolio/removeCoinWithTransactionsSaga";
 import {fetchRegistrationWatcher} from "./auth/registrationSaga";
+import {fetchRecoverTransactionWatcher} from "./portfolio/recoverTransactionSaga";
+import {fetchGetCoinInfoWatcher} from "./coingecko_api/getCoinInfoSaga";
+import {getCoinPriceByIntervalWatcher} from "./coingecko_api/getCoinPriceByInterval";
 
 export function* rootWatcher() {
     yield all([
@@ -30,5 +33,8 @@ export function* rootWatcher() {
         getCoinHistoryWatcher(),
         fetchRemoveTransactionWatcher(),
         fetchRemoveCoinWithTransactionsWatcher(),
+        fetchRecoverTransactionWatcher(),
+        fetchGetCoinInfoWatcher(),
+        getCoinPriceByIntervalWatcher(),
     ]);
 }

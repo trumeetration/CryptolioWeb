@@ -19,12 +19,12 @@ import {
 } from "../../store/actions/authModalActions";
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
 import {Alerts} from "../Alerts/AlertsList";
+import {ModalCoinInfo} from "../Modals/ModalCoinInfo";
 
 const NavbarLayout = ({info, infoAuth, setActivePage, updateIsLoginModalVisible, updateIsAuth, fetchVerifyToken}) => {
     useEffect(() => {
         fetchVerifyToken();
     }, [])
-    //console.log(infoAuth);
     return (
         <div>
             <Router>
@@ -109,7 +109,7 @@ const NavbarLayout = ({info, infoAuth, setActivePage, updateIsLoginModalVisible,
                     </div>
                 </div>
             </nav>
-
+                {infoAuth.isCoinInfoVisible && <ModalCoinInfo />}
             <Switch>
                 <Route exact path="/" render={({ match }) => <MainPage />} />
                 <Route exact path="/market" render={({ match }) => <MarketPage />} />
