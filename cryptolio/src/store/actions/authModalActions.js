@@ -56,7 +56,7 @@ import {
     FETCH_GET_COIN_INFO,
     FETCH_GET_COIN_PRICE_BY_INTERVAL,
     IS_CHARTS_INFO_LOADING,
-    SET_CHARTS_INFO, UPDATE_IS_CHARTS_INFO_LOADING,
+    SET_CHARTS_INFO, UPDATE_IS_CHARTS_INFO_LOADING, SET_TOTAL_PORTFOLIO_PRICE,
 } from "../types/authModalTypes";
 
 export const setLoginReg = (value) => ({
@@ -349,5 +349,10 @@ export const updateIsChartsInfoLoading = (value) => ({
 
 export const setChartsInfo = (value) => ({
     type: SET_CHARTS_INFO,
+    value
+})
+
+export const setTotalPortfolioPrice = (value) => ({
+    type: SET_TOTAL_PORTFOLIO_PRICE,
     value
 })

@@ -5,14 +5,15 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
 import {
-    fetchGetCoinsData,
+    fetchGetCoinsData, setTotalPortfolioPrice,
     updateIsOpenAddRecordsModal,
     updateIsOpenConfirmationModal, updateRemoveType,
     updateSelectedCoin, updateSelectedCoinForRemove
 } from "../../store/actions/authModalActions";
 import {Transaction} from "./Transaction";
 
-const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updateSelectedCoin, coinName, updateRemoveType, updateIsOpenConfirmationModal, updateSelectedCoinForRemove}) => {
+const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updateSelectedCoin, coinName, updateRemoveType, updateIsOpenConfirmationModal, updateSelectedCoinForRemove,
+                              setTotalPortfolioPrice}) => {
     useEffect(() => {
         updateIsTransactionsVisible(false);
     },[]);
@@ -26,6 +27,9 @@ const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updat
             })
         }
     }
+    useEffect(() => {
+        if (finalAmount !== 0) setTotalPortfolioPrice(info.totalPortfolioPrice + (finalAmount * recordsData[0].marketPrice))
+    }, [finalAmount])
     //console.log(recordsData);
     return (
         <div>
@@ -95,7 +99,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {fetchGetCoinsData, updateIsOpenAddRecordsModal, updateSelectedCoin, updateRemoveType, updateIsOpenConfirmationModal, updateSelectedCoinForRemove},
+        {fetchGetCoinsData, updateIsOpenAddRecordsModal, updateSelectedCoin, updateRemoveType, updateIsOpenConfirmationModal, updateSelectedCoinForRemove,
+            setTotalPortfolioPrice},
         dispatch
     );
 export const RowRecords = connect(

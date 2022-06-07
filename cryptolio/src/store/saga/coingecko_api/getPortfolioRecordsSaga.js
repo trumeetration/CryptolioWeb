@@ -45,6 +45,7 @@ function* fetchGetPortfolioRecordsWorker({id}) {
             idsStr
         );
         const coinData = yield call(() => new Promise((res) => res(requestCoinsData.json())));
+        console.log(json['result']);
         json['result'].map((el) => {
             coinData.map((elData) => {
                 if (el.coinId === elData.id)

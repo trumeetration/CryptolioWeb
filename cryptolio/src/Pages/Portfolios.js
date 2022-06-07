@@ -6,7 +6,7 @@ import {
     fetchAddPortfolio,
     fetchGetPortfolioRecords,
     fetchGetPortfolios,
-    fetchSearchCoins,
+    fetchSearchCoins, setTotalPortfolioPrice,
     updateIsOpenAddRecordsModal,
     updateIsOpenSearchCoinModal,
     updateIsTrashOpen,
@@ -23,7 +23,7 @@ import {ModalRemoveConfirmation} from "../components/Modals/ModalRemoveConfirmat
 
 export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfolioRecords, updateSelectedPortfolio,
                                          fetchAddPortfolio, updateIsOpenAddRecordsModal, fetchSearchCoins, updateSelectedCoin,
-                                         updateIsOpenSearchCoinModal, updateIsTrashOpen}) => {
+                                         updateIsOpenSearchCoinModal, updateIsTrashOpen, setTotalPortfolioPrice}) => {
     useEffect(() => {
         fetchGetPortfolios();
         updateIsOpenAddRecordsModal(false);
@@ -35,22 +35,16 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
         if (info.isAuth !== false) fetchGetPortfolios();
     }, [info.isAuth])
     const [IsOpenEditModal, updateIsOpenEditModal] = useState(false);                           //состояние модального окна редактирования портфолио
-    //const [IsOpenAddRecordModal, updateIsOpenAddRecordModal] = useState(false);                 //состояние модального окна добавления записи
     const [selectedPortfolioEdit, updateSelectedPortfolioEdit] = useState(null);                //id портфолио для редактирвоания
     const [isAddPortfolioButtonVisible, updateIsAddPortfolioButtonVisible] = useState(true);    //видимость кнопки добавления портфолио
     const [nameAddedPortfolio, setNameAddedPortfolio] = useState('');
+
     let filteredPortfolios = [];
     if (info.portfolioList !== null && info.isAuth === true) {
         filteredPortfolios = info.portfolioList.sort(function(a, b) {
             return a.id - b.id;
         });
     }
-    /*if (document.getElementById('myDropdown') !== null) {
-        let myDropdown = document.getElementById('myDropdown')
-        myDropdown.addEventListener('hidden.bs.dropdown', function () {
-            updateIsAddPortfolioButtonVisible(true);
-        })
-    }*/
     const addPortfolioHandler = () => {
         if (nameAddedPortfolio.trim() !== '') {
             fetchAddPortfolio(nameAddedPortfolio);
@@ -67,7 +61,7 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
                 <div className="container d-flex column">
                     <div className="w-25">
                         <div className="h5">
-                            Выбор портфолио
+                            Portfolio selection
                         </div>
                         {info.portfolioList ? filteredPortfolios.map((row, id) => {
                             return (
@@ -115,16 +109,24 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
                     <div className="flex-row w-75">
                         <div className="d-flex justify-content-between">
                             <div className="d-flex column justify-content-center w-100">
-                                <button className="btn btn-primary column navbar-brand" onClick={() => {updateIsTrashOpen(false)}}>
-                                    Транзакции
+                                <button className="btn btn-primary column navbar-brand" onClick={() => {updateIsTrashOpen(false); setTotalPortfolioPrice(0)}}>
+                                    Transactions
                                 </button>
-                                <button className="btn btn-primary column navbar-brand" onClick={() => {updateIsTrashOpen(true)}}>
-                                    Корзина
+                                <button className="btn btn-primary column navbar-brand" onClick={() => {updateIsTrashOpen(true); setTotalPortfolioPrice(0)}}>
+                                    Trash
                                 </button>
                             </div>
                             {info.selectedPortfolio !== null &&
-                                <button className="btn btn-outline-primary" onClick={() => {updateSelectedCoin(null); updateIsOpenSearchCoinModal(true)}}>Добавить</button>
+                                <button className="btn btn-outline-primary" onClick={() => {updateSelectedCoin(null); updateIsOpenSearchCoinModal(true)}}>
+                                    Add
+                                </button>
                             }
+                        </div>
+                        <div className="d-flex column justify-content-start m-3">
+                            <div className="infoTable d-flex column justify-content-center p-3">
+                                <div className="me-1">Total: </div>
+                                <div>${info.totalPortfolioPrice}</div>
+                            </div>
                         </div>
                         {<TableRecords />}
                     </div>
@@ -132,7 +134,7 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
                 :
                 <div className="d-flex justify-content-center">
                     <div className="h1">
-                        Вы не авторизованы!
+                        You are not authorized!
                     </div>
                 </div>
             }
@@ -150,7 +152,7 @@ const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
         {fetchGetPortfolios, fetchGetPortfolioRecords, updateSelectedPortfolio, fetchAddPortfolio,
             updateIsOpenAddRecordsModal, fetchSearchCoins, updateSelectedCoin, updateIsOpenSearchCoinModal,
-            updateIsTrashOpen},
+            updateIsTrashOpen, setTotalPortfolioPrice},
         dispatch
     );
 export const PortfoliosPage = connect(

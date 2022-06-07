@@ -2,12 +2,12 @@ import React from "react";
 import {bindActionCreators} from "redux";
 import {
     fetchRemoveCoinWithTransaction,
-    fetchRemoveTransaction,
+    fetchRemoveTransaction, setTotalPortfolioPrice,
     updateIsOpenConfirmationModal,
 } from "../../store/actions/authModalActions";
 import {connect} from "react-redux";
 
-const ModalRemoveConfirmationLayout = ({info, updateIsOpenConfirmationModal, fetchRemoveTransaction, fetchRemoveCoinWithTransaction}) => {
+const ModalRemoveConfirmationLayout = ({info, updateIsOpenConfirmationModal, fetchRemoveTransaction, fetchRemoveCoinWithTransaction, setTotalPortfolioPrice}) => {
     return (
         <div className="modal">
             <div className="my-modal" style={{width: 400, maxHeight: '100%'}}>
@@ -20,7 +20,7 @@ const ModalRemoveConfirmationLayout = ({info, updateIsOpenConfirmationModal, fet
                         </div>
                         <div className="body-modal">
                             <div className="d-flex column justify-content-around">
-                                <button className="btn btn btn-primary w-25" onClick={() => {fetchRemoveTransaction(info.selectedTransactionForRemove); updateIsOpenConfirmationModal(false)}}>Да</button>
+                                <button className="btn btn btn-primary w-25" onClick={() => {fetchRemoveTransaction(info.selectedTransactionForRemove); updateIsOpenConfirmationModal(false); setTotalPortfolioPrice(0)}}>Да</button>
                                 <button className="btn btn btn-danger w-25" onClick={() => {updateIsOpenConfirmationModal(false)}}>Нет</button>
                             </div>
                         </div>
@@ -53,7 +53,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {updateIsOpenConfirmationModal, fetchRemoveTransaction, fetchRemoveCoinWithTransaction},
+        {updateIsOpenConfirmationModal, fetchRemoveTransaction, fetchRemoveCoinWithTransaction, setTotalPortfolioPrice},
         dispatch
     );
 export const ModalRemoveConfirmation = connect(

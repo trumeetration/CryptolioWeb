@@ -35,7 +35,11 @@ import {
     SET_REGISTRATION_ERROR,
     IS_TRASH_OPEN,
     UPDATE_IS_COIN_INFO_VISIBLE,
-    UPDATE_IS_COIN_INFO_LOADING, SET_COIN_INFO, SET_CHARTS_INFO, UPDATE_IS_CHARTS_INFO_LOADING
+    UPDATE_IS_COIN_INFO_LOADING,
+    SET_COIN_INFO,
+    SET_CHARTS_INFO,
+    UPDATE_IS_CHARTS_INFO_LOADING,
+    SET_TOTAL_PORTFOLIO_PRICE
 } from "../types/authModalTypes";
 
 const INITIAL_STATE = {
@@ -81,6 +85,7 @@ const INITIAL_STATE = {
     isCoinInfoLoading: true,
     isChartsInfoLoading: true,
     chartsInfo: null,
+    totalPortfolioPrice: 0,
 };
 
 export const authModalReducer = (state = INITIAL_STATE, action) => {
@@ -205,6 +210,7 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 selectedPortfolio: action.value,
+                totalPortfolioPrice: 0,
             }
         case SET_PORTFOLIO_RECORDS_LIST:
             return {
@@ -297,6 +303,11 @@ export const authModalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 chartsInfo: action.value,
+            }
+        case SET_TOTAL_PORTFOLIO_PRICE:
+            return {
+                ...state,
+                totalPortfolioPrice: action.value,
             }
         default:
             return state;

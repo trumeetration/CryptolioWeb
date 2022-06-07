@@ -31,3 +31,10 @@
     border-color: rgba(13, 94, 255, 60%);
     background-color: rgba(13, 94, 255, 10%);
 }
+
+.tablePercentage {
+    width: 12%;
+    border-bottom: 1px solid rgba(0, 0, 0, 50%);
+    border-top: 1px solid rgba(0, 0, 0, 50%);
+    border-right: 1px solid rgba(0, 0, 0, 50%);
+}

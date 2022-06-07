@@ -55,38 +55,6 @@ const NavbarLayout = ({info, infoAuth, setActivePage, updateIsLoginModalVisible,
                         </div>
                         <div className="col-md-2 offset-md-2 pe-0">
                             <div className="d-flex justify-content-end">
-                                <div className="dropdown">
-                                    <button
-                                        className="btn btn-bd-light border-secondary dropdown-toggle"
-                                        type="button"
-                                        id="dropdownMenuButton1"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                    >
-                                        USD
-                                    </button>
-                                    <ul
-                                        className="dropdown-menu"
-                                        aria-labelledby="dropdownMenuButton1"
-                                    >
-                                        <li>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                            >
-                                                USD
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                            >
-                                                RUB
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
                                 {infoAuth.isAuth ?
                                     <div className="d-flex flex-row align-items-center ms-2">
                                         {infoAuth.username}

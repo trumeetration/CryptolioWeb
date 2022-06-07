@@ -5,14 +5,14 @@ import {connect} from "react-redux";
 import {
     fetchAddPortfolioRecords,
     fetchGetCoinHistory, fetchGetPortfolios,
-    fetchSearchCoins,
+    fetchSearchCoins, setTotalPortfolioPrice,
     updateIsOpenAddRecordsModal, updateIsOpenSearchCoinModal,
     updateSelectedCoin
 } from "../../store/actions/authModalActions";
 import {LoginLoader} from "../../UI/Loaders/loginLoader";
 import './stylesModalAddRecords.css';
 
-const ModalAddRecordLayout = ({info, updateIsOpenAddRecordsModal, updateSelectedCoin, fetchGetCoinHistory, fetchAddPortfolioRecords, updateIsOpenSearchCoinModal, fetchGetPortfolios}) => {
+const ModalAddRecordLayout = ({info, updateIsOpenAddRecordsModal, updateSelectedCoin, fetchGetCoinHistory, fetchAddPortfolioRecords, updateIsOpenSearchCoinModal, fetchGetPortfolios, setTotalPortfolioPrice}) => {
     useEffect(() => {
         if (info.selectedCoin !== null) isFollowCheck(info.selectedCoin);
         SetMaxTransaction();
@@ -74,6 +74,7 @@ const ModalAddRecordLayout = ({info, updateIsOpenAddRecordsModal, updateSelected
         if (isFollow) transactionType = 'follow';
         //console.log(isSuccess);
         if (isSuccess) {
+            setTotalPortfolioPrice(0);
             updateIsOpenAddRecordsModal(false);
             const dt = Date.parse(transactionDate + ' ' + transactionTime);
             //console.log(dt / 1000);
@@ -195,7 +196,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {fetchSearchCoins, updateIsOpenAddRecordsModal, updateSelectedCoin, fetchGetCoinHistory, fetchAddPortfolioRecords, updateIsOpenSearchCoinModal, fetchGetPortfolios},
+        {fetchSearchCoins, updateIsOpenAddRecordsModal, updateSelectedCoin, fetchGetCoinHistory, fetchAddPortfolioRecords, updateIsOpenSearchCoinModal, fetchGetPortfolios, setTotalPortfolioPrice},
         dispatch
     );
 export const ModalAddRecord = connect(

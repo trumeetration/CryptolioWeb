@@ -102,12 +102,85 @@ const ModalCoinInfoLayout = ({info, updateSelectedCoin, fetchGetCoinInfo, update
                                                 <span className="text-secondary">{info.coinInfo.symbol.toUpperCase()}</span>
                                             </div>
                                         </div>
+                                        <div className="d-flex column justify-content-center mb-3 mt-3">
+                                            <div className="tablePercentage text-center" style={{borderLeft: '1px solid rgba(0, 0, 0, 50%)'}}>
+                                                <div className="pb-2 pt-2" style={{borderBottom: '1px solid rgba(0, 0, 0, 50%)'}}>1h</div>
+                                                {info.coinInfo.priceChangePercentage1hInCurrency > 0
+                                                    ?
+                                                    <div className="pb-2 pt-2 text-success">{(info.coinInfo.priceChangePercentage1hInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                    :
+                                                    <div className="pb-2 pt-2 text-danger">{(info.coinInfo.priceChangePercentage1hInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                }
+                                            </div>
+                                            <div className="tablePercentage text-center">
+                                                <div className="pb-2 pt-2" style={{borderBottom: '1px solid rgba(0, 0, 0, 50%)'}}>24h</div>
+                                                {info.coinInfo.priceChangePercentage24hInCurrency > 0
+                                                    ?
+                                                    <div className="pb-2 pt-2 text-success">{(info.coinInfo.priceChangePercentage24hInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                    :
+                                                    <div className="pb-2 pt-2 text-danger">{(info.coinInfo.priceChangePercentage24hInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                }
+                                            </div>
+                                            <div className="tablePercentage text-center">
+                                                <div className="pb-2 pt-2" style={{borderBottom: '1px solid rgba(0, 0, 0, 50%)'}}>7d</div>
+                                                {info.coinInfo.priceChangePercentage7dInCurrency > 0
+                                                    ?
+                                                    <div className="pb-2 pt-2 text-success">{(info.coinInfo.priceChangePercentage7dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                    :
+                                                    <div className="pb-2 pt-2 text-danger">{(info.coinInfo.priceChangePercentage7dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                }
+                                            </div>
+                                            <div className="tablePercentage text-center">
+                                                <div className="pb-2 pt-2" style={{borderBottom: '1px solid rgba(0, 0, 0, 50%)'}}>14d</div>
+                                                {info.coinInfo.priceChangePercentage14dInCurrency > 0
+                                                    ?
+                                                    <div className="pb-2 pt-2 text-success">{(info.coinInfo.priceChangePercentage14dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                    :
+                                                    <div className="pb-2 pt-2 text-danger">{(info.coinInfo.priceChangePercentage14dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                }
+                                            </div>
+                                            <div className="tablePercentage text-center">
+                                                <div className="pb-2 pt-2" style={{borderBottom: '1px solid rgba(0, 0, 0, 50%)'}}>30d</div>
+                                                {info.coinInfo.priceChangePercentage30dInCurrency > 0
+                                                    ?
+                                                    <div className="pb-2 pt-2 text-success">{(info.coinInfo.priceChangePercentage30dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                    :
+                                                    <div className="pb-2 pt-2 text-danger">{(info.coinInfo.priceChangePercentage30dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                }
+                                            </div>
+                                            <div className="tablePercentage text-center">
+                                                <div className="pb-2 pt-2" style={{borderBottom: '1px solid rgba(0, 0, 0, 50%)'}}>60d</div>
+                                                {info.coinInfo.priceChangePercentage60dInCurrency > 0
+                                                    ?
+                                                    <div className="pb-2 pt-2 text-success">{(info.coinInfo.priceChangePercentage60dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                    :
+                                                    <div className="pb-2 pt-2 text-danger">{(info.coinInfo.priceChangePercentage60dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                }
+                                            </div>
+                                            <div className="tablePercentage text-center">
+                                                <div className="pb-2 pt-2" style={{borderBottom: '1px solid rgba(0, 0, 0, 50%)'}}>200d</div>
+                                                {info.coinInfo.priceChangePercentage200dInCurrency > 0
+                                                    ?
+                                                    <div className="pb-2 pt-2 text-success">{(info.coinInfo.priceChangePercentage200dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                    :
+                                                    <div className="pb-2 pt-2 text-danger">{(info.coinInfo.priceChangePercentage200dInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                }
+                                            </div>
+                                            <div className="tablePercentage text-center">
+                                                <div className="pb-2 pt-2" style={{borderBottom: '1px solid rgba(0, 0, 0, 50%)'}}>1y</div>
+                                                {info.coinInfo.priceChangePercentage1yInCurrency > 0
+                                                    ?
+                                                    <div className="pb-2 pt-2 text-success">{(info.coinInfo.priceChangePercentage1yInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                    :
+                                                    <div className="pb-2 pt-2 text-danger">{(info.coinInfo.priceChangePercentage1yInCurrency / 100).toLocaleString('en', {style: 'percent', maximumFractionDigits: 2})}</div>
+                                                }
+                                            </div>
+                                        </div>
                                         <div className="d-flex column justify-content-center">
                                             <button className="my-btn my-btn-left" onClick={() => setTimeInterval(1)}>24h</button>
                                             <button className="my-btn" onClick={() => setTimeInterval(7)}>7d</button>
                                             <button className="my-btn" onClick={() => setTimeInterval(14)}>14d</button>
                                             <button className="my-btn my-btn-right" onClick={() => setTimeInterval(30)}>30d</button>
-                                            {/*<button className="btn btn-outline-secondary" onClick={() => setTimeInterval(0)}>Max</button>*/}
                                         </div>
                                         {info.isChartsInfoLoading ?
                                             <div className="d-flex justify-content-center align-items-center h-100">

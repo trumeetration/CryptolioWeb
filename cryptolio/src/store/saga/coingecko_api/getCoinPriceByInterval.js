@@ -13,13 +13,13 @@ const request = (data) => {
 
 export function* fetchGetCoinPriceByIntervalWorker({data}) {
     yield put(updateIsChartsInfoLoading(true));
-    console.log(data)
+    //console.log(data)
     const answer = yield call(
         request,
         data
     );
     const json = yield call(() => new Promise((res) => res(answer.json())));
-    console.log(json);
+    //console.log(json);
     yield put(setChartsInfo(json));
     yield put(updateIsChartsInfoLoading(false));
 }

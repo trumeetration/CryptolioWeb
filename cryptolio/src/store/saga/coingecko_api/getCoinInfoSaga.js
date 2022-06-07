@@ -28,7 +28,7 @@ export function* fetchGetCoinInfoWorker({id}) {
             id: json.id,
             name: json.name,
             symbol: json.symbol,
-            sparkline: json.market_data.sparkline_7d.price,
+            //sparkline: json.market_data.sparkline_7d.price,
             image: json.image,
             marketPrice: json.market_data.current_price.usd,
             marketCap: json.market_data.market_cap.usd,
