@@ -2,7 +2,7 @@ import React from "react";
 
 export const MainPage = ({}) => {
     return (
-        <div>Main Page</div>
+        <div className="text-center h1">Main page</div>
     )
 
 };

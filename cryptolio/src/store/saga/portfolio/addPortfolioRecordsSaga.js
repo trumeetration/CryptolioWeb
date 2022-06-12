@@ -15,7 +15,7 @@ const request = (data) => {
         "txTime": data.txTime,
         "txPrice": data.txPrice,
         "amount": data.amount,
-        "note": data.note,
+        "notes": data.note,
         "recordType": data.recordType
     });
 
