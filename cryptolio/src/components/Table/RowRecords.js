@@ -12,14 +12,31 @@ import {
 } from "../../store/actions/authModalActions";
 import {Transaction} from "./Transaction";
 
-const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updateSelectedCoin, coinName, updateRemoveType, updateIsOpenConfirmationModal, updateSelectedCoinForRemove,
-                              setTotalPortfolioPrice}) => {
+const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updateSelectedCoin, coinName,
+                              updateRemoveType, updateIsOpenConfirmationModal, updateSelectedCoinForRemove, setTotalPortfolioPrice}) => {
     useEffect(() => {
         updateIsTransactionsVisible(false);
+        let temp = 0;
+        let avg = 0;
+        let bCount = 0;
+        for (let i = 0; i < recordsData.length; i++) {
+            if (recordsData[i].recordType === 'buy') {
+                temp += Number(recordsData[i].amount);
+                bCount += 1;
+                avg += Number(recordsData[i].txPrice);
+            }
+            else if (recordsData[i].recordType === 'sell') temp -= Number(recordsData[i].amount)
+        }
+        //setTotalPrice(temp * recordsData[0].marketPrice);
+        setFinalAmount(temp);
+        setAvgPrice(avg);
+        setBuyCount(bCount);
     },[]);
     const [isTransactionsVisible, updateIsTransactionsVisible] = useState(false);
-    let finalAmount = 0;
-    let avgPrice = 0;
+    const [finalAmount, setFinalAmount] = useState(0);
+    const [avgPrice, setAvgPrice] = useState(0);
+    const [buyCount, setBuyCount] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
     const searchCoin = (name) => {
         if (info.searchCoinList !== null) {
             info.searchCoinList.map((el) => {
@@ -28,9 +45,23 @@ const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updat
         }
     }
     useEffect(() => {
-        if (finalAmount !== 0) setTotalPortfolioPrice(info.totalPortfolioPrice + (finalAmount * recordsData[0].marketPrice))
-    }, [finalAmount])
+        //if (totalPrice !== 0)
+        {
+            //if (info.totalPortfolioPrice !== 0)
+            {
+                //console.log('-->', totalPrice);
+                //let temp = info.totalPortfolioPrice;
+                //console.log(temp, ' + ', totalPrice, ' = ' , temp + totalPrice)
+                //setTotalPortfolioPrice(temp + totalPrice);
+            }
+            //else setTotalPortfolioPrice(totalPrice);
+        }
+    }, [totalPrice])
+    useEffect(() => {
+        console.log(info.totalPortfolioPrice)
+    }, [info.totalPortfolioPrice])
     //console.log(recordsData);
+    //console.log('avg :', avgPrice);
     return (
         <div>
             <div className="rowTableRecords">
@@ -41,23 +72,17 @@ const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updat
                 </div>
                 <div className="columnTableRecords columnTableAmount font-monospace">
                     {recordsData
-                        //.filter((obj) => { if (obj.status === 'live') return obj} )
                         .map((el) => {
-                        finalAmount += el.amount;
-                        avgPrice += el.txPrice;
+                        //avgPrice += el.txPrice;
                     })}
                     {finalAmount}
                 </div>
                 <div className="columnTableRecords columnTableBuyPrice font-monospace">
                     {recordsData
-                        //.filter((obj) => { if (obj.status === 'live') return obj} )
                         .length > 0 ?
-                        (avgPrice/recordsData
-                            //.filter((obj) => { if (obj.status === 'live') return obj} )
-                            .length).toLocaleString('en', { style: 'currency', currency: 'USD'})
+                        (avgPrice/buyCount).toLocaleString('en', { style: 'currency', currency: 'USD'})
                     :
                         recordsData
-                            //.filter((obj) => { if (obj.status === 'live') return obj} )
                             .length.toLocaleString('en', { style: 'currency', currency: 'USD'})
                     }
                 </div>
@@ -99,8 +124,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators(
-        {fetchGetCoinsData, updateIsOpenAddRecordsModal, updateSelectedCoin, updateRemoveType, updateIsOpenConfirmationModal, updateSelectedCoinForRemove,
-            setTotalPortfolioPrice},
+        {fetchGetCoinsData, updateIsOpenAddRecordsModal, updateSelectedCoin,
+            updateRemoveType, updateIsOpenConfirmationModal, updateSelectedCoinForRemove, setTotalPortfolioPrice},
         dispatch
     );
 export const RowRecords = connect(

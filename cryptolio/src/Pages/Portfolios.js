@@ -38,7 +38,8 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
     const [selectedPortfolioEdit, updateSelectedPortfolioEdit] = useState(null);                //id портфолио для редактирвоания
     const [isAddPortfolioButtonVisible, updateIsAddPortfolioButtonVisible] = useState(true);    //видимость кнопки добавления портфолио
     const [nameAddedPortfolio, setNameAddedPortfolio] = useState('');
-
+    const [totalPrice, setTotalPrice] = useState(0);
+    let totalPriceTemp = 0;
     let filteredPortfolios = [];
     if (info.portfolioList !== null && info.isAuth === true) {
         filteredPortfolios = info.portfolioList.sort(function(a, b) {
@@ -51,6 +52,51 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
             setNameAddedPortfolio('');
         }
     }
+
+    const sumTotal = (txList) => {
+        let amount = 0;
+        //let avg = 0;
+        //let bCount = 0;
+        for (let i = 0; i < txList.length; i++) {
+            if (txList[i].recordType === 'buy') {
+                amount += Number(txList[i].amount);
+            }
+            else if (txList[i].recordType === 'sell') amount -= Number(txList[i].amount)
+        }
+        totalPriceTemp += (amount * txList[0].marketPrice);
+        setTotalPrice(totalPriceTemp);
+    }
+
+    useEffect(() => {
+        setTotalPrice(0);
+        if (info.portfolioRecordsList !== null) {
+            if (!info.isTrashOpen) {
+                Object.keys(info.portfolioRecordsList)
+                    .map((el) => {
+                        if ((info.portfolioRecordsList[el]
+                                .filter((obj) => {
+                                    if (obj.status === 'live') return obj;
+                                })
+                        ).length !== 0) {
+                            sumTotal(info.portfolioRecordsList[el]);
+                        }
+                })
+            }
+            else {
+                Object.keys(info.portfolioRecordsList)
+                    .map((el) => {
+                        if ((info.portfolioRecordsList[el]
+                                .filter((obj) => {
+                                    if (obj.status === 'trash') return obj;
+                                })
+                        ).length !== 0) {
+                            sumTotal(info.portfolioRecordsList[el]);
+                        }
+                    })
+            }
+        }
+
+    }, [info.portfolioRecordsList, info.isTrashOpen])
     return (
         <div>
             {info.isOpenConfirmationModal && <ModalRemoveConfirmation />}
@@ -101,13 +147,21 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
                                     :
                                     <div className="d-flex justify-content-center align-items-center w-75" style={{transition: '1s'}}>
                                         <TextInput onTextChange={setNameAddedPortfolio} label={'Name'}/>
-                                        <button className="addButton ms-2 mt-4" onClick={() => {addPortfolioHandler(); updateIsAddPortfolioButtonVisible(true);}}>+</button>
+                                        <button className="addButton ms-2 mt-4 w-25" onClick={() => {addPortfolioHandler(); updateIsAddPortfolioButtonVisible(true);}}>{nameAddedPortfolio.trim() !== '' ? <>+</> : <>x</>}</button>
                                     </div>
                             }
                         </div>
                     </div>
                     <div className="flex-row w-75">
+                        <div className="d-flex column justify-content-start m-3">
+                            <div className="infoTable d-flex column justify-content-center p-3">
+                                <div className="me-1">Total: </div>
+                                <div>${totalPrice}
+                                </div>
+                            </div>
+                        </div>
                         <div className="d-flex justify-content-between">
+                            <div className="text-center align-self-center h4 ms-3">{info.isTrashOpen ? <>Trash</> : <>Transactions</>}</div>
                             <div className="d-flex column justify-content-center w-100">
                                 <button className="btn btn-primary column navbar-brand" onClick={() => {updateIsTrashOpen(false); setTotalPortfolioPrice(0)}}>
                                     Transactions
@@ -122,13 +176,7 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
                                 </button>
                             }
                         </div>
-                        <div className="d-flex column justify-content-start m-3">
-                            <div className="infoTable d-flex column justify-content-center p-3">
-                                <div className="me-1">Total: </div>
-                                <div>${info.totalPortfolioPrice}</div>
-                            </div>
-                        </div>
-                        {<TableRecords />}
+                        {<TableRecords/>}
                     </div>
                 </div>
                 :
