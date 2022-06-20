@@ -17,20 +17,23 @@ export function* fetchGetCoinHistoryWorker({data}) {
         request,
         data
     );
-    if (answer.status === 400) {
-        yield put(updateGlobalAlertList({id:Math.random(), header: "Whoops", body: "Something went wrong :("}))
-    }
-    else {
+    if (answer.status === 200) {
         const json = yield call(() => new Promise((res) => res(answer.json())));
-        let preparedData = {
-            id: json.id,
-            image: json.image,
-            marketPrice: json.market_data.current_price.usd,
-            marketCup: json.market_data.market_cap.usd,
-            totalVolume: json.market_data.total_volume.usd
-        }
+        let preparedData = {};
+
+            preparedData = {
+                id: json.id,
+                image: json.image,
+                marketPrice: json.market_data.current_price.usd,
+                marketCup: json.market_data.market_cap.usd,
+                totalVolume: json.market_data.total_volume.usd
+            }
+
         //console.log(preparedData);
         yield put(setCoinHistory(preparedData));
+    }
+    else {
+        yield put(updateGlobalAlertList({id:Math.random(), header: "Whoops", body: "Something went wrong :("}))
     }
 }
 

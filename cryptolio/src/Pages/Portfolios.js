@@ -73,24 +73,26 @@ export const PortfoliosPageLayout = ({info, fetchGetPortfolios, fetchGetPortfoli
             if (!info.isTrashOpen) {
                 Object.keys(info.portfolioRecordsList)
                     .map((el) => {
-                        if ((info.portfolioRecordsList[el]
+                        let tempArr = [];
+                        if ((tempArr = info.portfolioRecordsList[el]
                                 .filter((obj) => {
                                     if (obj.status === 'live') return obj;
                                 })
                         ).length !== 0) {
-                            sumTotal(info.portfolioRecordsList[el]);
+                            sumTotal(tempArr);
                         }
                 })
             }
             else {
                 Object.keys(info.portfolioRecordsList)
                     .map((el) => {
-                        if ((info.portfolioRecordsList[el]
+                        let tempArr = [];
+                        if ((tempArr = info.portfolioRecordsList[el]
                                 .filter((obj) => {
                                     if (obj.status === 'trash') return obj;
                                 })
                         ).length !== 0) {
-                            sumTotal(info.portfolioRecordsList[el]);
+                            sumTotal(tempArr);
                         }
                     })
             }

@@ -27,16 +27,14 @@ const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updat
             }
             else if (recordsData[i].recordType === 'sell') temp -= Number(recordsData[i].amount)
         }
-        //setTotalPrice(temp * recordsData[0].marketPrice);
         setFinalAmount(temp);
         setAvgPrice(avg);
         setBuyCount(bCount);
-    },[]);
+    },[info.isTrashOpen]);
     const [isTransactionsVisible, updateIsTransactionsVisible] = useState(false);
     const [finalAmount, setFinalAmount] = useState(0);
     const [avgPrice, setAvgPrice] = useState(0);
     const [buyCount, setBuyCount] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
     const searchCoin = (name) => {
         if (info.searchCoinList !== null) {
             info.searchCoinList.map((el) => {
@@ -44,24 +42,6 @@ const RowRecordsLayout = ({info, recordsData, updateIsOpenAddRecordsModal, updat
             })
         }
     }
-    useEffect(() => {
-        //if (totalPrice !== 0)
-        {
-            //if (info.totalPortfolioPrice !== 0)
-            {
-                //console.log('-->', totalPrice);
-                //let temp = info.totalPortfolioPrice;
-                //console.log(temp, ' + ', totalPrice, ' = ' , temp + totalPrice)
-                //setTotalPortfolioPrice(temp + totalPrice);
-            }
-            //else setTotalPortfolioPrice(totalPrice);
-        }
-    }, [totalPrice])
-    useEffect(() => {
-        console.log(info.totalPortfolioPrice)
-    }, [info.totalPortfolioPrice])
-    //console.log(recordsData);
-    //console.log('avg :', avgPrice);
     return (
         <div>
             <div className="rowTableRecords">

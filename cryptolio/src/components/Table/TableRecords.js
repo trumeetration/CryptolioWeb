@@ -57,18 +57,20 @@ const TableRecordsLayout = ({info}) => {
                     !info.isTrashOpen ?
                     Object.keys(info.portfolioRecordsList)
                         .map((el) => {
-                            return (info.portfolioRecordsList[el]
-                                        .filter((obj) => {if (obj.status === 'live' /*&& obj.recordType !== 'follow'*/) return obj })
+                            let tempArr = [];
+                            return (tempArr = info.portfolioRecordsList[el]
+                                        .filter((obj) => {if (obj.status === 'live') return obj })
                                 ).length !== 0 &&
-                                <RowRecords recordsData={info.portfolioRecordsList[el]} coinName={el}/>
+                                <RowRecords recordsData={tempArr} coinName={el}/>
                         })
                     :
                         Object.keys(info.portfolioRecordsList)
                             .map((el) => {
-                                return (info.portfolioRecordsList[el]
-                                            .filter((obj) => {if (obj.status === 'trash' /*&& obj.recordType !== 'follow'*/) return obj })
+                                let tempArr = [];
+                                return (tempArr = info.portfolioRecordsList[el]
+                                            .filter((obj) => {if (obj.status === 'trash') return obj })
                                     ).length !== 0 &&
-                                    <RowRecords recordsData={info.portfolioRecordsList[el]} coinName={el}/>
+                                    <RowRecords recordsData={tempArr} coinName={el}/>
                             })
                     :
                     <div className="text-center rounded-3 pt-5 pb-5"><LoginLoader/></div>
